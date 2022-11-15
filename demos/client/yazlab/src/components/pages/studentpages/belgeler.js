@@ -32,13 +32,13 @@ function Belgeler() {
         [] // Never re-runs
     );
 
-        function zattirizortzort(id) {
-            fetch(variables.API_URL+"internships/download/"+id, {
-                headers: {
-                    'Accept': 'application/pdf'
-                    }
-            });
-        }
+        // function zattirizortzort(id) {
+        //     fetch(variables.API_URL+"internships/download/"+id, {
+        //         headers: {
+        //             'Accept': 'application/pdf'
+        //             }
+        //     });
+        // }
 
     
     
@@ -52,7 +52,7 @@ function Belgeler() {
             <div className="card-body">
                 <h5 className="card-title">{intern.internshipType==1?"Staj 1":"Staj 2"}</h5>
                 <p className="card-text">{intern.id}</p>
-                <a href={"https://localhost:7148/api/Internships/download/"+intern.id} target="_blank" className="btn btn-primary" onClick={() => zattirizortzort(intern.id)}>İndir</a>
+                <a href={variables.API_URL+"Internships/download/"+intern.id} target="_blank" className="btn btn-primary" >İndir</a>
             </div>
             {console.log("c: "+count)}
         </div>
