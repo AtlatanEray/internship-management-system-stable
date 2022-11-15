@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {postUser} from '../../hooks/useAddUser.js';
+import {postStudent, postTeacher, postAdmin} from '../../hooks/useAddUser.js';
 
 function Ykullaniciekle () {
 
@@ -9,9 +9,20 @@ function Ykullaniciekle () {
     const [email,setEmail]= useState("");
     const [phone, setPhone] = useState();
     const [tc, setTc] = useState();
-    // const [role, setRole] = useState();
+    const [role, setRole] = useState("");
+
 
     function addUser() {
+        if (role=="1"){
+            addStudent();
+        } else if (role=="2") {
+            addTeacher();
+        } else if (role=="3") {
+            addAdmin();
+        }
+    }
+
+    function addStudent() {
         var x = JSON.stringify({
             firstName: name,
             lastName: lastName,
@@ -26,7 +37,46 @@ function Ykullaniciekle () {
                
         });
         console.log(JSON.parse(x));
-        postUser(x);
+        postStudent(x);
+    }
+
+    function addTeacher() {
+        var x = JSON.stringify({
+            firstName: name,
+            lastName: lastName,
+            departmentId: 1,
+            password: "string",
+            email: email,
+            telephone: phone,
+            tc: tc,
+            teacher: {
+              registrationNumber: userId,
+         }               
+        });
+        console.log(JSON.parse(x));
+        postTeacher(x);
+    }
+
+    function addAdmin() {
+        var x = JSON.stringify({
+            firstName: name,
+            lastName: lastName,
+            departmentId: 1,
+            password: "string",
+            email: email,
+            telephone: phone,
+            tc: tc,
+            teacher: {
+                registrationNumber: userId,
+         },  admins: [
+            {
+              superAdmin: false
+            }
+          ]
+               
+        });
+        console.log(JSON.parse(x));
+        postAdmin(x);
     }
     
     return (
@@ -72,7 +122,7 @@ function Ykullaniciekle () {
                                     <input type="text" class="form-control" id="ogrNo"
                                         placeholder="ogrNo" value={userId}
                                         onChange={(e) => setUserid(e.target.value)}/>
-                                    <label htmlFor="floatingInput">Öğrenci Numarası</label>
+                                    <label htmlFor="floatingInput">Öğrenci Numarası/Sicil No</label>
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input type="email" class="form-control" id="floatingInput"
@@ -83,13 +133,11 @@ function Ykullaniciekle () {
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="floatingSelectRol4"
                                         aria-label="Floating label select example"
-                                         value={"1"} disabled>
+                                         value={role} onChange={() => setRole(event.target.value)}>
                                         <option selected>Seçiniz</option>
                                         <option value="1">Öğrenci</option>
                                         <option value="2">Öğretmen</option>
-                                        <option value="3">Komisyon</option>
                                         <option value="3">Yönetici</option>
-                                        {/* onChange={() => setRole(event.target.value)} */}
                                     </select>
                                     <label htmlFor="floatingSelectRol4">Rol</label>
                                 </div>
