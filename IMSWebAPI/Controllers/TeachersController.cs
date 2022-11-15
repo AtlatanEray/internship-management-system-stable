@@ -24,7 +24,25 @@ namespace IMSWebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
         {
-            return await _context.Teachers.ToListAsync();
+
+            var teachers = _context.Teachers.Include(x => x.User).ToListAsync().Result;
+            //_context.Entry(teachers).Collec
+            //_context.Entry(teachers).Reference(t => t).Load();
+
+
+            //teachers.ForEach(x => x.User.Department = _context.Departments.FindAsync(x.User.DepartmentId).Result);
+            //return teachers;
+
+            return await _context.Teachers
+                .Include(t => t.User)
+                .ToListAsync();
+
+            //var teach = _context.ChangeTracker
+            //    .Entries<Teacher>()
+            //    .Select(e => e.Property(t => t.User.DepartmentId))
+            //    .ToList();
+            //_context.Teachers.Where(t => teach.Contains(t.User.DepartmentId)).Load();
+
         }
 
         // GET: api/Teachers/5

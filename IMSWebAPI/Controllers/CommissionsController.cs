@@ -77,7 +77,10 @@ namespace IMSWebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Commission>> PostCommission(Commission commission)
         {
-            _context.Commissions.Add(commission);
+            Commission com = new Commission();
+            com.TeacherId = commission.TeacherId;
+            com.Teacher = await _context.Teachers.FindAsync(com.TeacherId);
+            _context.Commissions.Add(com);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCommission", new { id = commission.Id }, commission);

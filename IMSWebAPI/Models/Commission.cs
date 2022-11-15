@@ -8,6 +8,6 @@ namespace IMSWebAPI.Models
         public short Id { get; set; }
         public long TeacherId { get; set; }
 
-        public virtual Teacher Teacher { get; set; } = null!;
+        public virtual Teacher? Teacher { get; set; } = null!;
     }
 }
