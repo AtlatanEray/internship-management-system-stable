@@ -186,7 +186,7 @@ function Navbara({children}) {
                             <a href="#" class="dropdown-item"><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#exampleModal">
                                 Şifre Değiştirme
                               </button></a>
-                            <a href="#" class="dropdown-item"><button type="button" class="btn btn-outline-secondary m-2">Çıkış</button></a>
+                            <a href="#" class="dropdown-item"><button type="button" class="btn btn-outline-secondary m-2" onClick={handleClick}>Çıkış</button></a>
                         </div>
                     </div>
                 </div>
