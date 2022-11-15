@@ -202,11 +202,11 @@ namespace IMSWebAPI.Controllers
         {
             user.Student.UserId = user.Id;
             string randomPass = RandomPass.CreatePassword(6);
-            SendMail.sendPassMail(randomPass, user.Email);
             user.Password = Hashing.MD5Hash(randomPass);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
+            SendMail.sendPassMail(randomPass, user.Email);
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
