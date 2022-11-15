@@ -206,20 +206,49 @@ namespace IMSWebAPI.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
+            user.Password = "";
             SendMail.sendPassMail(randomPass, user.Email);
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
+        //POST: api/Users/teacherSignUp
         [HttpPost("teacherSignUp")]
         public async Task<ActionResult<User>> PostTeacher(User user)
         {
             user.Teacher.UserId = user.Id;
             string randomPass = RandomPass.CreatePassword(6);
-            SendMail.sendPassMail(randomPass, user.Email);
             user.Password = Hashing.MD5Hash(randomPass);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
+
+            user.Password = "";
+            SendMail.sendPassMail(randomPass, user.Email);
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        }
+
+        //POST: api/Users/adminSignUp
+        [HttpPost("adminSignUp")]
+        public async Task<ActionResult<User>> PostAdmin(User user)
+        {
+            user.Teacher.UserId = user.Id;
+            string randomPass = RandomPass.CreatePassword(6);
+            user.Password = Hashing.MD5Hash(randomPass);
+            Admin admin = new Admin();
+
+            admin.UserId = user.Id;
+            admin.SuperAdmin = false;
+            user.Admins.Add(admin);
+
+
+            _context.Users.Add(user);
+
+
+            await _context.SaveChangesAsync();
+
+
+            user.Password = "";
+            SendMail.sendPassMail(randomPass, user.Email);
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 

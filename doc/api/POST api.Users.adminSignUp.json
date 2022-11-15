@@ -1,0 +1,17 @@
+{
+    "departmentId": 6,
+    "firstName": "Zeynep Hilal",
+    "lastName": "Kilimci",
+    "password": "benzeynep",
+    "email": "antwane.ayodeji@fallinhay.com",
+    "telephone": "905343156565",
+    "tc": "11123111143",
+    "teacher": {
+      "registrationNumber": "1012"
+    },
+  "admins": [
+    {
+      "superAdmin": false
+    }
+  ]
+}

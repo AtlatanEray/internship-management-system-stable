@@ -9,6 +9,6 @@ namespace IMSWebAPI.Models
         public long UserId { get; set; }
         public bool SuperAdmin { get; set; }
 
-        public virtual User User { get; set; } = null!;
+        public virtual User? User { get; set; } = null!;
     }
 }
