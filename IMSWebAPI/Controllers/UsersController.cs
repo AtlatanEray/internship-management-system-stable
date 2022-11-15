@@ -234,18 +234,17 @@ namespace IMSWebAPI.Controllers
             user.Teacher.UserId = user.Id;
             string randomPass = RandomPass.CreatePassword(6);
             user.Password = Hashing.MD5Hash(randomPass);
-            Admin admin = new Admin();
 
+
+
+            Admin admin = new Admin();
             admin.UserId = user.Id;
             admin.SuperAdmin = false;
-            user.Admins.Add(admin);
-
-
             _context.Users.Add(user);
-
 
             await _context.SaveChangesAsync();
 
+            user.Admins.Add(admin);
 
             user.Password = "";
             SendMail.sendPassMail(randomPass, user.Email);
