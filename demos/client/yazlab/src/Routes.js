@@ -54,7 +54,8 @@ const Routess = () => {
         <Routes>
             
             {/* role="student" */}
-            <Route exact path= "/home" element={userInfo!=null ? <Navbar><Home/></Navbar> : <Navigate to="/login"/>}/>
+            <Route exact path= "/" element={role!="logout" ? <Navbar><Home/></Navbar> : <Navigate to="/login"/>}/>
+            {/* <Route exact path= "/home" element={role!="logout" ? <Navbar><Home/></Navbar> : <Navigate to="/login"/>}/> */}
             <Route exact path= "/imebasvuru" element={role="student" ? <Navbar><Imebasvuru/></Navbar> : <Navigate to="/login"/>}/>
             <Route exact path= "/imedefteri" element={role="student" ? <Navbar><Imedefteri/></Navbar> : <Navigate to="/login"/>}/>
             <Route exact path= "/imedegerlendirme" element={role="student" ? <Navbar><Imedegerlendirme/></Navbar> : <Navigate to="/login"/>}/>
@@ -85,7 +86,7 @@ const Routess = () => {
             <Route exact path= "/ykullaniciekle" element={userInfo!=null ? <Navbara><Ykullaniciekle/></Navbara> : <Navigate to="/login"/>}/>
 
             {/* login page */}
-            <Route exact path= "/login" element={!user ? <Login/> : <Navigate to="/home"/>}/>
+            <Route exact path= "/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
         </Routes>
 
     );
