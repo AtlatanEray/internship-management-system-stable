@@ -1,0 +1,12 @@
+{
+    "departmentId": 6,
+    "firstName": "Berra",
+    "lastName": "Oğuz",
+    "password": "benberra",
+    "email": "berra@gmail.com",
+    "telephone": "905345456565",
+    "tc": "11111111143",
+    "teacher": {
+      "registrationNumber": "1010"
+    }
+  }
