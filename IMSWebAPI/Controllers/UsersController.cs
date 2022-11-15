@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using IMSWebAPI.Models;
 using IMSWebAPI.Models.APIModels;
 
-
 using IMSWebAPI.Tools;
 
 namespace IMSWebAPI.Controllers
@@ -108,6 +107,10 @@ namespace IMSWebAPI.Controllers
             return afterLoginInfo;
         }
 
+        // POST: api/Users/AddUser
+        //[HttpPost("adduser")]
+        //public async Task<IActionResult> Login(LoginInfo loginInfo)
+
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
@@ -188,7 +191,9 @@ namespace IMSWebAPI.Controllers
         public async Task<ActionResult<User>> PostStudent(User user)
         {
             user.Student.UserId = user.Id;
-            user.Password = Hashing.MD5Hash(user.Password);
+            string randomPass = RandomPass.CreatePassword(6);
+            SendMail.sendPassMail(randomPass, user.Email);
+            user.Password = Hashing.MD5Hash(randomPass);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
