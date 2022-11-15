@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { useAddUser } from "../../hooks/useAddUser";
+import {postUser} from '../../hooks/useAddUser.js';
 
 function Ykullaniciekle () {
 
@@ -7,27 +7,28 @@ function Ykullaniciekle () {
     const [lastName,setLastname] = useState("");
     const [userId, setUserid] = useState();
     const [email,setEmail]= useState("");
-    const [password,setPassword]= useState("");
     const [phone, setPhone] = useState();
     const [tc, setTc] = useState();
-    const [role, setRole] = useState();
+    // const [role, setRole] = useState();
 
-    const {adduser, error, isLoading} = useAddUser();
+    function addUser() {
+        var x = JSON.stringify({
+            firstName: name,
+            lastName: lastName,
+            departmentId: 1,
+            password: "string",
+            email: email,
+            telephone: phone,
+            tc: tc,
+            student: {
+              studentNumber: userId,
+         }
+               
+        });
+        console.log(JSON.parse(x));
+        postUser(x);
+    }
     
-
-    //back-endde olacak
-    const addPassword = () => {
-        const min = 1000;
-        const max = 9999;
-        const rand = min + Math.random() * (max - min);
-        setPassword(rand);
-    } 
-
-    const adduserHandler = async (e) => {
-        e.preventDefault();
-
-        await adduser(email, password, name, lastName, userId, phone, tc, role) 
-};
     return (
         <>
          <div class="container-fluid pt-4 px-4">
@@ -82,20 +83,20 @@ function Ykullaniciekle () {
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="floatingSelectRol4"
                                         aria-label="Floating label select example"
-                                        onChange={() => setRole(event.target.value)}>
+                                         value={"1"} disabled>
                                         <option selected>Seçiniz</option>
                                         <option value="1">Öğrenci</option>
                                         <option value="2">Öğretmen</option>
                                         <option value="3">Komisyon</option>
                                         <option value="3">Yönetici</option>
-                              
+                                        {/* onChange={() => setRole(event.target.value)} */}
                                     </select>
                                     <label htmlFor="floatingSelectRol4">Rol</label>
                                 </div>
                                                                  
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sifreataModal">Ekle</button>
+                            <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} onClick={addUser}>Ekle</button>
                         </div>
                     </div>
 
@@ -115,7 +116,7 @@ function Ykullaniciekle () {
                         <p>Kullanıcıya rastgele bir şifre atayınız.</p>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick= {addPassword} >Şifre Ata</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}  >Şifre Ata</button>
                     </div>
                   </div>
                 </div>
