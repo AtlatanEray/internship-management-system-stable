@@ -55,11 +55,11 @@ namespace IMSWebAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest();
+                    return BadRequest("wrong student pass");
                 }
             }
 
-            else if(unap.Password.Length == 4)
+            if(unap.UserName.Length == 4)
             {
                 var teacher = await _context.Teachers.Where(u => u.RegistrationNumber == unap.UserName).FirstOrDefaultAsync();
                 var userId = teacher.UserId;
@@ -76,34 +76,44 @@ namespace IMSWebAPI.Controllers
                     afterLoginInfo.user.Password = null;
                     afterLoginInfo.id = teacher.RegistrationNumber;
 
-                    var com = await _context.Commissions.FindAsync(user.Id);
-                    if(com.TeacherId == user.Id) { 
-                        afterLoginInfo.role = "commission"; 
-                    
-                    } else {
-                        var adm = await _context.Admins.FindAsync(user.Id);
-                        if (adm.Id == user.Id)
+                    //var com = new Commission();
+                    var com = await _context.Commissions.Where(c => c.TeacherId == user.Id).ToListAsync();
+                    if (com.Count > 0)
+                    {
+                        if (com[0].TeacherId == user.Id)
                         {
-                            if (adm.SuperAdmin)
+                            afterLoginInfo.role = "commission";
+
+                        }
+                    }
+                    else
+                    {
+                        var adm = await _context.Admins.Where(a => a.UserId == user.Id).ToListAsync();
+                        if (adm.Count > 0)
+                        {
+                            if (adm[0].Id == user.Id)
                             {
-                                afterLoginInfo.role = "superadmin";
-                            }
-                            else
-                            {
-                                afterLoginInfo.role = "admin";
+                                if (adm[0].SuperAdmin)
+                                {
+                                    afterLoginInfo.role = "superadmin";
+                                }
+                                else
+                                {
+                                    afterLoginInfo.role = "admin";
+                                }
                             }
                         }
                     }
                 }else
                 {
-                    return BadRequest();
+                    return BadRequest("wrong teacher pass");
                 }
             }
             else
             {
-                return BadRequest();
+                return BadRequest("wrong info");
             }
-
+            afterLoginInfo.role = "teacher";
             return afterLoginInfo;
         }
 
@@ -200,7 +210,20 @@ namespace IMSWebAPI.Controllers
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        
+        [HttpPost("teacherSignUp")]
+        public async Task<ActionResult<User>> PostTeacher(User user)
+        {
+            user.Teacher.UserId = user.Id;
+            string randomPass = RandomPass.CreatePassword(6);
+            SendMail.sendPassMail(randomPass, user.Email);
+            user.Password = Hashing.MD5Hash(randomPass);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        }
+
+
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
