@@ -22,7 +22,7 @@ function Komstajkabul () {
                                                 <tr>
                                                     <th scope="row">1</th>
                                                     <td>John</td>
-                                                    <td><a href="#">Görüntüle</a></td>
+                                                    <td><a data-toggle="modal" data-target="#notModal">Görüntüle</a></td>
                                                     <td>
                                                         <button type="button" class="btn mr-1">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-check-circle" viewBox="0 0 16 16">
@@ -48,64 +48,7 @@ function Komstajkabul () {
                                                         </button>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Mark</td>
-                                                    <td><a href="#">Görüntüle</a></td>
-                                                    <td>
-                                                        <button type="button" class="btn mr-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-check-circle" viewBox="0 0 16 16">
-                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-                                                            </svg>
-                                                        </button>
-                                                    </td> 
-                                                    <td>
-                                                        <button type="button" class="btn mr-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                                              </svg>
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn mr-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                                                              </svg>
-                                                        </button>
-                                                    </td>             
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Jacob</td>
-                                                    <td><a href="#">Görüntüle</a></td>
-                                                    <td>
-                                                        <button type="button" class="btn mr-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-check-circle" viewBox="0 0 16 16">
-                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-                                                            </svg>
-                                                        </button>
-                                                    </td> 
-                                                    <td>
-                                                        <button type="button" class="btn mr-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                                              </svg>
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn mr-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                                                              </svg>
-                                                        </button>
-                                                    </td>
-                                                </tr>
+
                                             </tbody>
                                         </table>
                                         <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Güncelle</button>
@@ -113,40 +56,6 @@ function Komstajkabul () {
                                     </div>
                                 </div>
                             </div>
-                </div>
-            </div>
-           
-            {/* <!-- ogrstajtakip End --> */}
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Şifre Değiştirme</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword"
-                                placeholder="Password"/>
-                            <label for="floatingPassword">Mevcut şifreniz</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword"
-                                placeholder="Password"/>
-                            <label for="floatingPassword">Yeni şifreniz</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword"
-                                placeholder="Password"/>
-                            <label for="floatingPassword">Yeni şifreniz</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kaydet</button>
-                    </div>
-                  </div>
                 </div>
             </div>
 
@@ -160,7 +69,8 @@ function Komstajkabul () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-floating mb-3">
+                        <iframe></iframe>
+                        {/* <div class="form-floating mb-3">
                             <input type = "text" class="form-control" id="adSoyad"
                                         placeholder="adSoyad"
                                     aria-label="default input example" disabled/>
@@ -225,10 +135,10 @@ function Komstajkabul () {
                                         placeholder="aciklama"
                                     aria-label="default input example"/>
                                     <label for="eksikBelge">Kabul Edilen Gün Sayısı</label>
-                        </div>                        
+                        </div>                         */}
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kaydet</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kapat</button>
                     </div>
                   </div>
                 </div>
@@ -267,6 +177,7 @@ function Komstajkabul () {
                   </div>
                 </div>
             </div>
+
         </>
     )
 }

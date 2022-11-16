@@ -34,6 +34,7 @@ import Komimekabul from "./components/pages/commissionpages/komimekabul";
 import Komimedegerlendirme from "./components/pages/commissionpages/komimedegerlendirme";
 
 import Ykullaniciekle from "./components/pages/adminpages/ykullaniciekle";
+import Ykomisyonatama from "./components/pages/adminpages/ykomisyonatama";
  
 import { useUserContext } from "./components/hooks/useUserContext";
 
@@ -82,8 +83,10 @@ const Routess = () => {
             <Route exact path= "/komimekabul" element={userInfo!=null ? <Navbart><Komimekabul/></Navbart> : <Navigate to="/login"/>}/>
             <Route exact path= "/komimedegerlendirme" element={userInfo!=null ? <Navbart><Komimedegerlendirme/></Navbart> : <Navigate to="/login"/>}/>
 
-            {/* role="commision" */}
+            {/* role="admin" */}
             <Route exact path= "/ykullaniciekle" element={userInfo!=null ? <Navbara><Ykullaniciekle/></Navbara> : <Navigate to="/login"/>}/>
+            <Route exact path= "/ykomisyonatama" element={userInfo!=null ? <Navbara><Ykomisyonatama/></Navbara> : <Navigate to="/login"/>}/>
+            
 
             {/* login page */}
             <Route exact path= "/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
