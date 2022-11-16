@@ -75,6 +75,7 @@ namespace IMSWebAPI.Controllers
                     afterLoginInfo.user = user;
                     afterLoginInfo.user.Password = null;
                     afterLoginInfo.id = teacher.RegistrationNumber;
+                    afterLoginInfo.role = "teacher";
 
                     //var com = new Commission();
                     var com = await _context.Commissions.Where(c => c.TeacherId == user.Id).ToListAsync();
@@ -113,7 +114,6 @@ namespace IMSWebAPI.Controllers
             {
                 return BadRequest("wrong info");
             }
-            afterLoginInfo.role = "teacher";
             return afterLoginInfo;
         }
 
