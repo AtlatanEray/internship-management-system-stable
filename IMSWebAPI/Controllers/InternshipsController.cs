@@ -298,7 +298,9 @@ namespace IMSWebAPI.Controllers
         [HttpPost("uploadAcceptanceForm")]
         public async Task<IActionResult> SubmitPost(IFormFile pdf, long internId)
         {
-            await pdf.CopyToAsync(new FileStream(("wwwroot/pdf/SignedAcceptancePdfFiles/" + internId + ".pdf"), FileMode.Create));
+            FileStream stream = new FileStream(("wwwroot/pdf/SignedAcceptancePdfFiles/" + internId + ".pdf"), FileMode.Create, FileAccess.ReadWrite);
+            await pdf.CopyToAsync(stream);
+            stream.Dispose();
             return Ok();
         }
 
