@@ -24,7 +24,10 @@ namespace IMSWebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Commission>>> GetCommissions()
         {
-            return await _context.Commissions.ToListAsync();
+            return await _context.Commissions
+                .Include(x => x.Teacher)
+                .Include (x => x.Teacher.User)
+                .ToListAsync();
         }
 
         // GET: api/Commissions/5
