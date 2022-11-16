@@ -42,7 +42,7 @@ namespace IMSWebAPI.Controllers
         { 
             await DownloadDeneme(id);
 
-            return PhysicalFile(this.Environment.WebRootPath+"/pdf/GeneratedEvulationPdfFiles/" + id + ".pdf", "application/pdf", id + ".pdf");
+            return PhysicalFile(this.Environment.WebRootPath+ "/pdf/GeneratedAcceptancePdfFiles/" + id + ".pdf", "application/pdf", id + ".pdf");
             //return PhysicalFile("C:/Users/eren_/Documents/demos/IMS-yazlab/internship-management-system/IMSWebAPI/wwwroot/pdf/GeneratedEvulationPdfFiles/" + id + ".pdf", "application/pdf", id+".pdf");
         }
 
@@ -144,7 +144,7 @@ namespace IMSWebAPI.Controllers
             intern.studentNumber = user.Student.StudentNumber;
             intern.departmentName = department.Name;
 
-            InternEvulationFormToPDF.PrintInternAcceptanceForm(intern, id);
+            InternAcceptanceFormToPDF.PrintInternAcceptanceForm(intern, id);
             return true;
 
         }
@@ -243,7 +243,7 @@ namespace IMSWebAPI.Controllers
         [HttpGet("readpdf/{id}")]
         public IActionResult PhysicalLocation(long id)
         {
-            string physicalPath = "wwwroot/pdf/GeneratedEvulationPdfFiles/" + id +".pdf";
+            string physicalPath = "wwwroot/pdf/SignedAcceptancePdfFiles/" + id +".pdf";
             byte[] pdfBytes = System.IO.File.ReadAllBytes(physicalPath);
             MemoryStream ms = new MemoryStream(pdfBytes);
             return new FileStreamResult(ms, "application/pdf");
@@ -295,8 +295,15 @@ namespace IMSWebAPI.Controllers
             return CreatedAtAction("GetInternship", new { id = internship.Id }, internship);
         }
 
-        // DELETE: api/Internships/5
-        [HttpDelete("{id}")]
+        [HttpPost("uploadAcceptanceForm")]
+        public async Task<IActionResult> SubmitPost(IFormFile pdf, long internId)
+        {
+            await pdf.CopyToAsync(new FileStream(("wwwroot/pdf/SignedAcceptancePdfFiles/" + internId + ".pdf"), FileMode.Create));
+            return Ok();
+        }
+
+            // DELETE: api/Internships/5
+            [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteInternship(long id)
         {
             var internship = await _context.Internships.FindAsync(id);

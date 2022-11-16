@@ -3,12 +3,12 @@ using Aspose.Words.Saving;
 using IMSWebAPI.Models.APIModels;
 namespace IMSWebAPI.Tools
 {
-    public class InternEvulationFormToPDF
+    public class InternAcceptanceFormToPDF
     {
         public static void PrintInternAcceptanceForm(InternshipInformationPDF intern, long id)
         {
             string _inputPath = "wwwroot/pdf/internshipform.docx";
-            string _outputPath = "wwwroot/pdf/GeneratedEvulationPdfFiles/"+id+".pdf";
+            string _outputPath = "wwwroot/pdf/GeneratedAcceptancePdfFiles/" + id+".pdf";
             Document doc = new Document(_inputPath);
             DocumentBuilder builder = new DocumentBuilder(doc);
 
