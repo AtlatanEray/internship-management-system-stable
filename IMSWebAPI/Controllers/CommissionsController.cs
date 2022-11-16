@@ -88,15 +88,14 @@ namespace IMSWebAPI.Controllers
 
         // DELETE: api/Commissions/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCommission(short id)
+        public async Task<IActionResult> DeleteCommission(long id)
         {
-            var commission = await _context.Commissions.FindAsync(id);
+            var commission = await _context.Commissions.Where(c => c.TeacherId == id).ToListAsync();
             if (commission == null)
             {
                 return NotFound();
             }
-
-            _context.Commissions.Remove(commission);
+            commission.ForEach(x => _context.Commissions.Remove(x));
             await _context.SaveChangesAsync();
 
             return NoContent();
