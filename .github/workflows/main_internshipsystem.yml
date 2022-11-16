@@ -55,3 +55,8 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AEE9975AD2D147F48528C275707E85AA }}
           package: .
+          
+      - uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
+      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@main    
