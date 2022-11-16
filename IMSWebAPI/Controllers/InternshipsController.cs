@@ -301,6 +301,14 @@ namespace IMSWebAPI.Controllers
             FileStream stream = new FileStream(("wwwroot/pdf/SignedAcceptancePdfFiles/" + internId + ".pdf"), FileMode.Create, FileAccess.ReadWrite);
             await pdf.CopyToAsync(stream);
             stream.Dispose();
+
+            InternshipControlInfo internApprove = new InternshipControlInfo();
+            internApprove.InternshipId = internId;
+            internApprove.InfoMessage = "pending";
+
+            _context.InternshipControlInfos.Add(internApprove);
+            await _context.SaveChangesAsync();
+            
             return Ok();
         }
 

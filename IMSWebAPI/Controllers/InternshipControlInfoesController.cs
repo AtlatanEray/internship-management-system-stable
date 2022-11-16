@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IMSWebAPI.Models;
 
+
 namespace IMSWebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -39,6 +40,19 @@ namespace IMSWebAPI.Controllers
             }
 
             return internshipControlInfo;
+        }
+
+        // GET: api/InternshipControlInfoes/PendingInternships
+        [HttpGet("pendinginternships")]
+        public async Task<ActionResult<IEnumerable<InternshipControlInfo>>> GetInternshipsPending()
+        {
+            var internships = await _context.InternshipControlInfos
+                .Where(x => x.InfoMessage == "pending")
+                .Include(x => x.Internship)
+                .Include(x => x.Internship.StudentInternships)
+                .ThenInclude(x => x.Student.User)
+                .ToListAsync();
+            return internships;
         }
 
         // PUT: api/InternshipControlInfoes/5
