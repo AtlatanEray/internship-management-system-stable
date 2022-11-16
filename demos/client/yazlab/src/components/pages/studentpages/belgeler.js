@@ -12,8 +12,7 @@ function Belgeler() {
     const [internshipInfo, setInternshipInfo] = useState([]);
     //const [count, setCount] = useState(0);
     var count = 0;
-    var cas = 0;
-    var internshipArray = [];
+
     useEffect(
         // Effect from first render
         () => {
@@ -40,7 +39,19 @@ function Belgeler() {
         //     });
         // }
 
-    
+    async function onChangeHandler (e) {
+        const data = new FormData();
+        await data.append('pdf', e.target.files[0]);
+        console.log("heeey: " + data.get('data'));
+        await fetch("https://localhost:7148/api/Internships/uploadAcceptanceForm?internId=1",{
+            method: 'POST',
+            
+                body: data
+            
+
+        });
+        console.log(data);
+    }
     
     return (
         <>
@@ -53,6 +64,14 @@ function Belgeler() {
                 <h5 className="card-title">{intern.internshipType==1?"Staj 1":"Staj 2"}</h5>
                 <p className="card-text">{intern.id}</p>
                 <a href={variables.API_URL+"Internships/download/"+intern.id} target="_blank" className="btn btn-primary" >İndir</a>
+                <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Staj Başvuru Formu Yükleme Alanı</h6>
+                                <div class="mb-3">
+                                <label for="formFile" class="form-label">Default file input example</label>
+                                <input class="form-control" type="file" name="file" id="formFile" onChange={onChangeHandler}/>
+                                <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}}>Başvuru Yap</button>                              
+                        </div>
+                </div>
             </div>
             {console.log("c: "+count)}
         </div>

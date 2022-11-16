@@ -1,4 +1,34 @@
+import { useState } from "react";
+import { useEffect } from 'react';
+import {variables} from '../../../Variables.js';
+
 function Komstajkabul () {
+
+    const [students, setStudent] = useState([]);
+
+    useEffect(
+        // Effect from first render
+        () => {
+           Student();
+        },
+        [] // Never re-runs
+    );
+
+    function Student() {
+        fetch(variables.API_URL + "Students", {
+            headers: {
+                'Accept': 'application/json'
+                }
+            })
+           .then(response => response.json())
+           .then(data => {
+               setStudent(data);
+           });
+
+           console.log(students);
+           console.log("çalış");
+    }
+
     return (
         <>
          <div class="container-fluid pt-4 px-4">
@@ -19,9 +49,10 @@ function Komstajkabul () {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            {students.map(student =>
                                                 <tr>
                                                     <th scope="row">1</th>
-                                                    <td>John</td>
+                                                    <td>{student.firstName}</td>
                                                     <td><a data-toggle="modal" data-target="#notModal">Görüntüle</a></td>
                                                     <td>
                                                         <button type="button" class="btn mr-1">
@@ -47,7 +78,7 @@ function Komstajkabul () {
                                                               </svg>
                                                         </button>
                                                     </td>
-                                                </tr>
+                                                </tr>)}
 
                                             </tbody>
                                         </table>
@@ -63,13 +94,13 @@ function Komstajkabul () {
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="notModalLabel">Öğrenci Notlandırma</h5>
+                      <h5 class="modal-title" id="notModalLabel">Öğrenci Staj Başvuru Formu</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                        <iframe></iframe>
+                        <iframe src={"https://localhost:7148/api/Internships/readpdf/31"}/> 
                         {/* <div class="form-floating mb-3">
                             <input type = "text" class="form-control" id="adSoyad"
                                         placeholder="adSoyad"
