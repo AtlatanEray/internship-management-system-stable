@@ -11,6 +11,7 @@ function Belgeler() {
     const [internship, setInternship] = useState([]);
     const [internshipInfo, setInternshipInfo] = useState([]);
     //const [count, setCount] = useState(0);
+    const [data, setData] = useState("")
     var count = 0;
 
     useEffect(
@@ -43,14 +44,19 @@ function Belgeler() {
         const data = new FormData();
         await data.append('pdf', e.target.files[0]);
         console.log("heeey: " + data.get('data'));
-        await fetch("https://localhost:7148/api/Internships/uploadAcceptanceForm?internId=1",{
+        setData(data);
+        console.log(data);
+    }
+
+    async function sendPdf (internId) {
+        await fetch(variables.API_URL + "InternshipControlInfoes/pendinginternships"+internId,{
             method: 'POST',
             
                 body: data
             
 
         });
-        console.log(data);
+
     }
     
     return (
@@ -69,7 +75,7 @@ function Belgeler() {
                                 <div class="mb-3">
                                 <label for="formFile" class="form-label">Default file input example</label>
                                 <input class="form-control" type="file" name="file" id="formFile" onChange={onChangeHandler}/>
-                                <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}}>Başvuru Yap</button>                              
+                                <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} onClick={() => sendPdf(intern.id)}>Başvuru Yap</button>                              
                         </div>
                 </div>
             </div>
