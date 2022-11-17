@@ -27,6 +27,16 @@ namespace IMSWebAPI.Controllers
             return await _context.InternshipExams.ToListAsync();
         }
 
+        // GET: api/InternshipExams/ListByTeacherUserId
+        [HttpGet("ListByTeacherUserId/{userId}")]
+        public async Task<ActionResult<IEnumerable<InternshipExam>>> ListByTeacherUserId(long userId)
+        {
+            return await _context.InternshipExams
+                .Where(x => x.TeacherId == userId)
+                .Include(x => x.Internship.StudentInternships).ThenInclude(si => si.Student.User)
+                .ToListAsync();
+        }
+
         // GET: api/InternshipExams/5
         [HttpGet("{id}")]
         public async Task<ActionResult<InternshipExam>> GetInternshipExam(int id)
