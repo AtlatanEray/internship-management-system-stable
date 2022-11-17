@@ -321,6 +321,14 @@ namespace IMSWebAPI.Controllers
             await bookForm.CopyToAsync(bookStream);
             bookStream.Dispose();
 
+            InternshipDocControl docControl = new InternshipDocControl();
+            docControl.InternshipId = internId;
+            docControl.InternshipsBookPath = "uploaded";
+            docControl.EvulationFormPath = "uploaded";
+
+            _context.InternshipDocControls.Add(docControl);
+            await _context.SaveChangesAsync();
+
             return Ok();
 
         }
