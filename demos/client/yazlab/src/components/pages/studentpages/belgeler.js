@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import { useState } from "react";
 // import { useCreateStaj } from "../hooks/useCreateStaj";
 import {variables} from '../../../Variables.js';
@@ -63,9 +64,11 @@ function Belgeler() {
     
 
     async function sendPdf (internId) {
+        const dataFile = new FormData();
+        await dataFile.append('pdf', data);
         await fetch(variables.API_URL + "Internships/uploadAcceptanceForm?internId="+internId,{
             method: 'POST',
-            body: data
+            body: dataFile
         });
 
     }
