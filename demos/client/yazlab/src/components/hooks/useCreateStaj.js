@@ -5,9 +5,6 @@
 import {variables} from '../../Variables.js';
 
 
-
-
-  
 export function postInternshipAcceptanceForm(internContent)  {
   var x;
   fetch(variables.API_URL+'internships/', {
