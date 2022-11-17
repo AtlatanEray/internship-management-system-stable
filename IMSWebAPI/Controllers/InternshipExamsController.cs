@@ -33,6 +33,7 @@ namespace IMSWebAPI.Controllers
         {
             return await _context.InternshipExams
                 .Where(x => x.TeacherId == userId)
+                .Include(x => x.Internship.Company)
                 .Include(x => x.Internship.StudentInternships).ThenInclude(si => si.Student.User)
                 .ToListAsync();
         }
