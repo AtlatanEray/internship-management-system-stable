@@ -3,12 +3,13 @@ import { useState } from "react";
 import {variables} from '../../../Variables.js';
 
 function Stajtakip () {
-    const [stajtakip, setStajtakip] = useState(1);
+    const {user, role, id, accessToken, previousLogin} = JSON.parse(localStorage.getItem('user'));
+    const [stajtakip, setStajtakip] = useState();
 
     useEffect(
         // Effect from first render
         () => {
-            fetch(variables.API_URL + "internships/getInternshipsByUserId/", {
+            fetch(variables.API_URL + "internships/getInternshipsByUserId/"+user.id, {
              headers: {
                  'Accept': 'application/json'
                  }
@@ -28,6 +29,24 @@ function Stajtakip () {
 
     return (
         <>
+
+{internship.map(intern => 
+            
+            ++count%2==0?
+            <div className="card" style={{width: "18rem"}}>
+            <image className="card-img-top"  alt="Card image cap"/>
+            <div className="card-body">
+                <h5 className="card-title">{intern.internshipType==1?"Staj 1":"Staj 2"}</h5>
+                <p className="card-text">{intern.id}</p>
+                <a href={variables.API_URL+"Internships/download/"+intern.id} target="_blank" className="btn btn-primary" >İndir</a>
+                
+            </div>
+            {console.log("c: "+count)}
+        </div>
+        
+        : null
+            )}
+            
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
