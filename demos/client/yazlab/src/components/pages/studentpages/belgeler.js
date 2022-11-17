@@ -89,12 +89,28 @@ function Belgeler() {
     return (
         <>
         {internship.map(intern => 
+
+            <>
+            {intern.internshipExams!=0?
+            <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px", borderWidth: 3 }}>
+                <div className="card-body">
+                    <h5 className="card-title">{intern.company.formalName}</h5>
+                    <h6>{intern.internshipType==1?"Staj 1":"Staj 2"}</h6>
+                    <p >Staj Id: {intern.id}</p>
+                    <b>Staj Sınavınız Onaylanmıştır.</b>
+                    <p><b>Sınav Sorumlunuz:</b> {intern.internshipExams[0].teacher.user.firstName + " " + intern.internshipExams[0].teacher.user.lastName}</p>
+                    <p><b>Sınav Tarihiniz:</b> {(intern.internshipExams[0].examTime).substring(0,10)}</p>
+                </div>
+            </div>
+            :
             
-            <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px" }}>
-            <image className="card-img-top"  alt="Card image cap"/>
+            <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px", borderWidth: 3 }}>
             <div className="card-body">
-                <h5 className="card-title">{intern.internshipType==1?"Staj 1":"Staj 2"}</h5>
-                <h4>{intern.internshipControlInfos.length>0?intern.internshipControlInfos[0].infoMessage:"NO INFO"}</h4>
+                <h5 className="card-title">{intern.company.formalName}</h5>
+                <h6>{intern.internshipType==1?"Staj 1":"Staj 2"}</h6>
+                <p >Staj Id: {intern.id}</p>
+                <b>Staj Sınavınız Onaylanmıştır.</b>
+                <p id="temp">{intern.internshipControlInfos.length>0?intern.internshipControlInfos[0].infoMessage:"NO INFO"}</p>
                 <p className="card-text">Staj Id: {intern.id}</p>
                 {intern.internshipControlInfos.length>0&&intern.internshipControlInfos[0].infoMessage=="ApplicationApproved"&&intern.internshipDocControls.length==0 ?
                 <>
@@ -135,7 +151,8 @@ function Belgeler() {
             </div>
             {console.log("c: "+count)}
         </div>
-        
+        }
+        </>
             )}
             
          </>
