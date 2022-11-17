@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import { useState } from "react";
 // import { useCreateStaj } from "../hooks/useCreateStaj";
 import {variables} from '../../../Variables.js';
@@ -63,9 +64,11 @@ function Belgeler() {
     
 
     async function sendPdf (internId) {
+        const dataFile = new FormData();
+        await dataFile.append('pdf', data);
         await fetch(variables.API_URL + "Internships/uploadAcceptanceForm?internId="+internId,{
             method: 'POST',
-            body: data
+            body: dataFile
         });
 
     }
@@ -107,7 +110,7 @@ function Belgeler() {
                 </div>
                 </>
                 :null}
-                {intern.internshipDocControls.length==0 ?
+                {intern.internshipControlInfos.length==0 ?
                 <>
                 <a href={variables.API_URL+"Internships/download/"+intern.id} target="_blank" className="btn btn-primary" >İndir</a>
                 <div class="bg-light rounded h-100 p-4">
@@ -119,9 +122,13 @@ function Belgeler() {
                     </div>
                 </div></>:
                 <>
+                    {intern.internshipDocControls.length==0?null:
+                    <>
                     <p>BookPath: {intern.internshipDocControls[0].internshipsBookPath}</p>
                     <p>EvulationPath: {intern.internshipDocControls[0].evulationFormPath}</p>
                     <p>accepted: {intern.internshipDocControls[0].accepted}</p>
+                    </>
+                    }
 
                 </>
                 }

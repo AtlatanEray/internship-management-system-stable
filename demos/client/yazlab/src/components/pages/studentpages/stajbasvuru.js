@@ -276,13 +276,13 @@ function Stajbasvuru() {
                                 <div class="col-lg-6">
                                     <div class="form-floating mb-3">
                                         <h6>Lütfen staj yapmak döneminizi seçiniz:</h6>
-                                        <fieldset class="row mb-3">
+                                        <fieldset class="row mb-3" id="group1">
                                             <div class="col-sm-10">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="gridRadios"
                                                         id="gridRadios1" value={internshipType}
                                                         onClick={() => setInternshipType(1)} checked/>
-                                                    <label class="form-check-label" for="gridRadios1">
+                                                    <label class="form-check-label" htmlFor="gridRadios1">
                                                         Staj 1
                                                     </label>
                                                 </div>
@@ -290,7 +290,7 @@ function Stajbasvuru() {
                                                     <input class="form-check-input" type="radio" name="gridRadios"
                                                         id="gridRadios2" value={internshipType}
                                                         onClick={() => setInternshipType(2)}/>
-                                                    <label class="form-check-label" for="gridRadios2">
+                                                    <label class="form-check-label" htmlFor="gridRadios2">
                                                         Staj 2
                                                     </label>
                                                 </div>
@@ -301,23 +301,23 @@ function Stajbasvuru() {
                                 <div class="col-lg-6">
                                     <div class="form-floating mb-3">
                                         <h6>Ailemden, kendimden veya anne-baba üzerinden genel sağlık sigortası kapsamında sağlık hizmeti alıyorum:</h6>
-                                        <fieldset class="row mb-3">         
+                                        <fieldset class="row mb-3" id="group3">         
                                             <div class="col-sm-10 " >
                                                 <div class="form-check" >
                                                     <input class="form-check-input" type="radio" name="gridRadios"
-                                                        id="gridRadios1" checked value={sgk}
+                                                        id="gridRadios3" checked value={sgk}
                                                         onClick={() => setSgk(true)}/>
-                                                    <label class="form-check-label" for="gridRadios1">
+                                                    <label class="form-check-label" htmlFor="gridRadios3">
                                                         Evet
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="gridRadios"
-                                                        id="gridRadios2" value={sgk}
+                                                        id="gridRadios4" value={sgk}
                                                     
                                                         onClick={() => setSgk(false)}
                                                         />
-                                                    <label class="form-check-label" for="gridRadios2">
+                                                    <label class="form-check-label" htmlFor="gridRadios4">
                                                        
                                                         Hayır
                                                     </label>
@@ -331,22 +331,22 @@ function Stajbasvuru() {
                                 <div class="col-lg-6">
                                     <div class="form-floating mb-3">
                                         <h6>Genel sağlık sigortası (GSS) (Gelir Testi Yaptırdım pirim ödüyorum):</h6>
-                                        <fieldset class="row mb-3">
+                                        <fieldset class="row mb-3" id="group4">
                                             <div class="col-sm-10">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="gridRadios"
-                                                        id="gridRadios1" checked
+                                                        id="gridRadios5" checked
                                                         value={gss}
                                                         onClick={() => setGss(true)}/>
-                                                    <label class="form-check-label" for="gridRadios1">
+                                                    <label class="form-check-label" htmlFor="gridRadios5">
                                                         Evet
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="gridRadios"
-                                                        id="gridRadios2" value={gss}
+                                                        id="gridRadios6" value={gss}
                                                         onClick={() => setGss(false)}/>
-                                                    <label class="form-check-label" for="gridRadios2">
+                                                    <label class="form-check-label" htmlFor="gridRadios6">
                                                        Hayır
                                                     </label>
                                                 </div>
@@ -357,23 +357,23 @@ function Stajbasvuru() {
                                 <div class="col-lg-6">
                                     <div class="form-floating mb-3">
                                         <h6>25 yaşımı doldurdum:</h6>
-                                        <fieldset class="row mb-3">
+                                        <fieldset class="row mb-3" id="group5">
                                             <div class="col-sm-10">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="gridRadios"
-                                                        id="gridRadios1" checked
+                                                        id="gridRadios7" checked
                                                         value={age}
                                                         onClick={() => setAge(true)}/>
-                                                    <label class="form-check-label" for="gridRadios1">
+                                                    <label class="form-check-label" htmlFor="gridRadios7">
                                                        Evet
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="gridRadios"
-                                                        id="gridRadios2" 
+                                                        id="gridRadios8" 
                                                         value={age}
                                                         onClick={() => setAge(false)}/>
-                                                    <label class="form-check-label" for="gridRadios2">
+                                                    <label class="form-check-label" htmlFor="gridRadios8">
                                                         Hayır
                                                     </label>
                                                 </div>

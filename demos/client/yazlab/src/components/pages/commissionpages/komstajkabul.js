@@ -183,7 +183,7 @@ function Komstajkabul () {
                         </div>                         */}
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kapat</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" style={{backgroundColor:"#009933"}}>Kapat</button>
                     </div>
                   </div>
                 </div>
@@ -223,7 +223,7 @@ function Komstajkabul () {
                        
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick={()=>Staj(false)} >Reddet</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick={()=>StajApprove(false)} >Reddet</button>
                     </div>
                   </div>
                 </div>
