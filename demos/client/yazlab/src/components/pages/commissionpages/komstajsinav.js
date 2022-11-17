@@ -234,16 +234,11 @@ function Komstajsinav () {
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
                                 value="option1"/>
-                            <label class="form-check-label" for="inlineRadio1">Eksik belge bulunmaktadır.</label>
+                            <h6 class="form-check-label" for="inlineRadio1">Eksik belge bulunmaktadır.</h6>
                         </div>
-                        <div class="form-floating mb-3">
-                            <input type = "text" class="form-control" id="aciklama"
-                                        placeholder="aciklama"
-                                    aria-label="default input example"/>
-                                    <label for="eksikBelge">Açıklama</label>
-                        </div>
+                        
                         <div class="form-check form-check-inline">
-                            <p>Eksik belge bulunmamaktaysa lütfen sınav bilgilerini güncelleyiniz.</p>
+                            <p>Eksik belge bulunmamaktaysa lütfen sınav bilgilerini düzenleyiniz.</p>
                         </div>
                     </div>
                     <div class="modal-footer">
