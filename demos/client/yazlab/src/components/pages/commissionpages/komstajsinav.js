@@ -61,7 +61,7 @@ function Komstajsinav () {
                                                     <td><a data-toggle="modal" data-target="#basvuruModal" onClick={()=>setPdfBasvuru(student.internshipId)}>Görüntüle</a></td>
                                                     <td><a data-toggle="modal" data-target="#defterModal" onClick={()=>setPdfDefter(student.internshipId)}>Görüntüle</a></td>
                                                     <td><a data-toggle="modal" data-target="#degModal" onClick={()=>setPdfDeg(student.internshipId)}>Görüntüle</a></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Değerlendir</button></td>
+                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Reddet</button></td>
                                                     <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sinavModal">Düzenle</button></td>                    
                     
                                                 </tr>)}
@@ -231,18 +231,13 @@ function Komstajsinav () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                value="option1"/>
-                            <h6 class="form-check-label" for="inlineRadio1">Eksik belge bulunmaktadır.</h6>
-                        </div>
                         
                         <div class="form-check form-check-inline">
-                            <p>Eksik belge bulunmamaktaysa lütfen sınav bilgilerini düzenleyiniz.</p>
+                            <p>Reddetmek istediğinize emin misiniz?</p>
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kaydet</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Reddet</button>
                     </div>
                   </div>
                 </div>
