@@ -111,14 +111,14 @@ function Navbara({children}) {
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
+                {/* <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
-                </a>
+                </a> */}
                 <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search"/>
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
+                    {/* <div class="nav-item dropdown">
                         
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -177,7 +177,7 @@ function Navbara({children}) {
                             <hr class="dropdown-divider"/>
                             <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
-                    </div>
+                    </div> */}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style={{width: "40px", height: "40px"}}/>
