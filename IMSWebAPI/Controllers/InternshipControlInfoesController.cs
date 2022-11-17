@@ -42,6 +42,18 @@ namespace IMSWebAPI.Controllers
             return internshipControlInfo;
         }
 
+        // GET: api/InternshipControlInfoes/AllInternships
+        [HttpGet("allinternships")]
+        public async Task<ActionResult<IEnumerable<InternshipControlInfo>>> GetInternshipsAll()
+        {
+            var internships = await _context.InternshipControlInfos
+                .Include(x => x.Internship)
+                .Include(x => x.Internship.StudentInternships)
+                .ThenInclude(x => x.Student.User)
+                .ToListAsync();
+            return internships;
+        }
+
         // GET: api/InternshipControlInfoes/PendingInternships
         [HttpGet("pendinginternships")]
         public async Task<ActionResult<IEnumerable<InternshipControlInfo>>> GetInternshipsPending()
@@ -54,6 +66,20 @@ namespace IMSWebAPI.Controllers
                 .ToListAsync();
             return internships;
         }
+
+        // GET: api/InternshipControlInfoes/ApprovedInternships
+        [HttpGet("approvedinternships")]
+        public async Task<ActionResult<IEnumerable<InternshipControlInfo>>> GetInternshipsApproved()
+        {
+            var internships = await _context.InternshipControlInfos
+                .Where(x => x.InfoMessage == "ApplicationApproved")
+                .Include(x => x.Internship)
+                .Include(x => x.Internship.StudentInternships)
+                .ThenInclude(x => x.Student.User)
+                .ToListAsync();
+            return internships;
+        }
+
 
         // PUT: api/InternshipControlInfoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -85,6 +111,53 @@ namespace IMSWebAPI.Controllers
 
             return NoContent();
         }
+
+        // PUT: api/InternshipControlInfoes/ApproveApplication
+        [HttpPut("ApproveApplication")]
+        public async Task<IActionResult> ApproveApplication(int internshipId, bool approve)
+        {
+
+            var iControl = await _context.InternshipControlInfos.Where(x => x.InternshipId == internshipId).ToListAsync();
+            if (iControl == null)
+            {
+                return BadRequest("wrong internShipId");
+            }
+
+            if(approve)
+            {
+                iControl.ForEach(x => x.InfoMessage = "ApplicationApproved");
+            }else
+            {
+                iControl.ForEach(x => x.InfoMessage = "ApplicationRejected");
+            }
+
+            for(int i=0; i<iControl.Count; i++)
+            {
+                _context.Entry(iControl[i]).State = EntityState.Modified;
+            }
+
+
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!InternshipControlInfoExists(internshipId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+
 
         // POST: api/InternshipControlInfoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

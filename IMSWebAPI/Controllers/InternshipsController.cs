@@ -162,9 +162,8 @@ namespace IMSWebAPI.Controllers
             var dd = _context.Internships
                 .Include(i => i.StudentInternships.Where(si => si.StudentId == userId))
                 .Include(i => i.Company)
-                .Include(i => i.Address)
-                .Include(i => i.Address.District)
-                .Include(i => i.Address.District.City)
+                .Include(x => x.InternshipControlInfos)
+                .Include(x => x.InternshipDocControls)
                 .ToListAsync().Result;
 
             //var list = _context.StudentInternships.Where(sii => sii.StudentId == id).Select(si => new { internId = si.InternId }).ToListAsync();
@@ -310,6 +309,29 @@ namespace IMSWebAPI.Controllers
             await _context.SaveChangesAsync();
             
             return Ok();
+        }
+
+        [HttpPost("UploadAfterInternshipDoc")]
+        public async Task<IActionResult> UploadAfterInternshipDoc(IFormFile evulationForm, IFormFile bookForm, long internId)
+        {
+            FileStream evulationStream = new FileStream(("wwwroot/pdf/EvulationFormPdfFiles/" + internId + ".pdf"), FileMode.Create, FileAccess.ReadWrite);
+            await evulationForm.CopyToAsync(evulationStream);
+            evulationStream.Dispose();
+
+            FileStream bookStream = new FileStream(("wwwroot/pdf/InternshipBookPdfFiles/" + internId + ".pdf"), FileMode.Create, FileAccess.ReadWrite);
+            await bookForm.CopyToAsync(bookStream);
+            bookStream.Dispose();
+
+            InternshipDocControl docControl = new InternshipDocControl();
+            docControl.InternshipId = internId;
+            docControl.InternshipsBookPath = "uploaded";
+            docControl.EvulationFormPath = "uploaded";
+
+            _context.InternshipDocControls.Add(docControl);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+
         }
 
             // DELETE: api/Internships/5

@@ -1,4 +1,35 @@
+import { useState } from "react";
+import { useEffect } from 'react';
+import {variables} from '../../../Variables.js';
+
 function Komstajkabul () {
+
+    const [students, setStudent] = useState([]);
+    const [pdf, setPdf] = useState();
+
+    useEffect(
+        // Effect from first render
+        () => {
+           Student();
+        },
+        [] // Never re-runs
+    );
+
+    function Student() {
+        fetch(variables.API_URL + "InternshipControlInfoes/pendinginternships", {
+            headers: {
+                'Accept': 'application/json'
+                }
+            })
+           .then(response => response.json())
+           .then(data => {
+               setStudent(data);
+           });
+
+           console.log(students);
+           console.log("çalış");
+    }
+
     return (
         <>
          <div class="container-fluid pt-4 px-4">
@@ -11,48 +42,50 @@ function Komstajkabul () {
                                             <thead>
                                                 <tr>
                                                     <th scope="col">ID</th>
+                                                    <th scope="col">Staj ID</th>
                                                     <th scope="col">Adı Soyadı</th>
                                                     <th scope="col">Staj Başvuru Formu</th>
                                                     <th scope="col">Kabul</th>
                                                     <th scope="col">Ret</th>
-                                                    <th scope="col">Sil</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            {students.map(student =>
                                                 <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>John</td>
-                                                    <td><a data-toggle="modal" data-target="#notModal">Görüntüle</a></td>
+                                                    <th scope="row">{student.internship.studentInternships[0].student.studentNumber}</th>
+                                                    <td scope="row">{student.internshipId}</td>
+                                                    {/* <td>
+                                                        <button type="button" class="btn mr-1" data-toggle="modal" data-target="#silModal">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                                              </svg>
+                                                        </button>
+                                                    </td> */}
+                                                    <td>{student.internship.studentInternships[0].student.user.firstName+" "+student.internship.studentInternships[0].student.user.lastName}</td>
+                                                    <td><a data-toggle="modal" data-target="#notModal" onClick={()=>setPdf(student.internshipId)}>Görüntüle</a></td>
                                                     <td>
-                                                        <button type="button" class="btn mr-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                                        <button type="button" class="btn mr-1" data-toggle="modal" data-target="#kabulModal">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-check-circle" viewBox="0 0 16 16" >
                                                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                                                 <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
                                                             </svg>
                                                         </button>
                                                     </td> 
                                                     <td>
-                                                        <button type="button" class="btn mr-1">
+                                                        <button type="button" class="btn mr-1" data-toggle="modal" data-target="#retModal">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-x-circle" viewBox="0 0 16 16">
                                                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                                               </svg>
                                                         </button>
                                                     </td>
-                                                    <td>
-                                                        <button type="button" class="btn mr-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                                                              </svg>
-                                                        </button>
-                                                    </td>
-                                                </tr>
+                                                    
+                                                </tr>)}
 
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Güncelle</button>
-                                        <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kaydet</button>
                                     </div>
                                 </div>
                             </div>
@@ -63,13 +96,13 @@ function Komstajkabul () {
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="notModalLabel">Öğrenci Notlandırma</h5>
+                      <h5 class="modal-title" id="notModalLabel">Öğrenci Staj Başvuru Formu</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                        <iframe></iframe>
+                        <iframe src={"https://localhost:7148/api/Internships/readpdf/"+pdf}/> 
                         {/* <div class="form-floating mb-3">
                             <input type = "text" class="form-control" id="adSoyad"
                                         placeholder="adSoyad"
@@ -143,6 +176,65 @@ function Komstajkabul () {
                   </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="kabulModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="notModalLabel">Öğrenci Staj Başvuru Formu</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bu öğrencinin stajını kabul etmek istediğinizden emin misiniz?</p>
+                       
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} >Kabul</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="retModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="notModalLabel">Öğrenci Staj Başvuru Formu</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bu öğrencinin stajını reddetmek istediğinizden emin misiniz?</p> 
+                       
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}  >Reddet</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            {/* <div class="modal fade" id="silModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="notModalLabel">Öğrenci Staj Başvuru Formu</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Silmek istediğinizden emin misiniz?</p>                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kapat</button>
+                    </div>
+                  </div>
+                </div>
+            </div> */}
 
             <div class="modal fade" id="belgeModal" tabindex="-1" role="dialog" aria-labelledby="belgeModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
