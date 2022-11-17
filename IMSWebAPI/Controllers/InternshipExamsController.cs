@@ -83,6 +83,28 @@ namespace IMSWebAPI.Controllers
             return CreatedAtAction("GetInternshipExam", new { id = internshipExam.Id }, internshipExam);
         }
 
+        // POST: api/InternshipExams/setExamAssignment
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("setExamAssignment")]
+        public async Task<ActionResult<InternshipExam>> SetExamAssignment(InternshipExam internshipExam)
+        {
+            if(internshipExam.AcceptedWorkDay == null)
+            {
+                internshipExam.AcceptedWorkDay = 0;
+            }
+            //internshipExam.ExamTime = new DateOnly(internshipExam.ExamTime.Year, 1, 1);
+            _context.InternshipExams.Add(internshipExam);
+
+            var doc = await _context.InternshipDocControls.Where(x => x.InternshipId == internshipExam.InternshipId).FirstOrDefaultAsync();
+            doc.Accepted = true;
+            _context.Entry(doc).State = EntityState.Modified;
+
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetInternshipExam", new { id = internshipExam.Id }, internshipExam);
+        }
+
         // DELETE: api/InternshipExams/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteInternshipExam(int id)
