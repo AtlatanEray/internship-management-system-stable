@@ -70,14 +70,15 @@ function Belgeler() {
                 <h4>{intern.internshipControlInfos.length>0?intern.internshipControlInfos[0].infoMessage:"NO INFO"}</h4>
                 <p className="card-text">{intern.id}</p>
                 <a href={variables.API_URL+"Internships/download/"+intern.id} target="_blank" className="btn btn-primary" >İndir</a>
+                {intern.internshipControlInfos.length>0&&intern.internshipControlInfos[0].infoMessage=="ApplicationApproved" ?null:
                 <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Staj Başvuru Formu Yükleme Alanı</h6>
-                                <div class="mb-3">
-                                <label for="formFile" class="form-label">Default file input example</label>
-                                <input class="form-control" type="file" name="file" id="formFile" onChange={onChangeHandler}/>
-                                <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} onClick={() => sendPdf(intern.id)}>Başvuru Yap</button>                              
-                        </div>
-                </div>
+                    <h6 class="mb-4">Staj Başvuru Formu Yükleme Alanı</h6>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Default file input example</label>
+                        <input class="form-control" type="file" name="file" id="formFile" onChange={onChangeHandler}/>
+                        <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} onClick={() => sendPdf(intern.id)}>Başvuru Yap</button>                              
+                    </div>
+                </div>}
             </div>
             {console.log("c: "+count)}
         </div>
