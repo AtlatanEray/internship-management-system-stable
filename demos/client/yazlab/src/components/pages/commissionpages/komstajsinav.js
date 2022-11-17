@@ -23,7 +23,7 @@ function Komstajsinav () {
                                                 <tr>
                                                     <th scope="row">1</th>
                                                     <td>John</td>
-                                                    <td><a href="#">Görüntüle</a></td>
+                                                    <td><a href="#" >Görüntüle</a></td>
                                                     <td><a href="#">Görüntüle</a></td>
                                                     <td><a href="#">Görüntüle</a></td>
                                                     <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Değerlendir</button></td>
@@ -59,39 +59,8 @@ function Komstajsinav () {
             </div>
            
             {/* <!-- ogrstajtakip End --> */}
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Şifre Değiştirme</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword"
-                                placeholder="Password"/>
-                            <label for="floatingPassword">Mevcut şifreniz</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword"
-                                placeholder="Password"/>
-                            <label for="floatingPassword">Yeni şifreniz</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword"
-                                placeholder="Password"/>
-                            <label for="floatingPassword">Yeni şifreniz</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kaydet</button>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
+           
+{/* ögr staj degerlentdirme
             <div class="modal fade" id="notModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -174,7 +143,7 @@ function Komstajsinav () {
                     </div>
                   </div>
                 </div>
-            </div>
+            </div> */}
 
             <div class="modal fade" id="belgeModal" tabindex="-1" role="dialog" aria-labelledby="belgeModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -198,9 +167,7 @@ function Komstajsinav () {
                                     <label for="eksikBelge">Açıklama</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="option2"/>
-                            <label class="form-check-label" for="inlineRadio2">Eksik belge bulunmamaktadır.</label>
+                            <p>Eksik belge bulunmamaktaysa lütfen sınav bilgilerini güncelleyiniz.</p>
                         </div>
                     </div>
                     <div class="modal-footer">

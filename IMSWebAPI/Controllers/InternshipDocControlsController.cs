@@ -27,6 +27,17 @@ namespace IMSWebAPI.Controllers
             return await _context.InternshipDocControls.ToListAsync();
         }
 
+        // GET: api/GetInternshipForExamAssignment
+        [HttpGet("GetInternshipForExamAssignment")]
+        public async Task<ActionResult<IEnumerable<InternshipDocControl>>> GetInternshipForExamAssignment()
+        {
+            return await _context.InternshipDocControls
+                .Where(x => x.InternshipsBookPath=="uploaded" || x.EvulationFormPath=="uploaded")
+                .Include(x => x.Internship.StudentInternships)
+                .ThenInclude(si => si.Student.User)
+                .ToListAsync();
+        }
+
         // GET: api/InternshipDocControls/5
         [HttpGet("{id}")]
         public async Task<ActionResult<InternshipDocControl>> GetInternshipDocControl(int id)

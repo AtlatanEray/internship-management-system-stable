@@ -1,0 +1,65 @@
+[  
+    {
+    "id": 2,
+    "internshipId": 15,
+    "internshipsBookPath": "uploaded",
+    "evulationFormPath": "uploaded",
+    "accepted": null,
+    "internship": {
+      "id": 15,
+      "addressId": 22,
+      "startingDate": "2022-10-30T00:00:00",
+      "endingDate": "0001-01-01T00:00:00",
+      "workDay": 0,
+      "internshipType": 1,
+      "sgk": true,
+      "_25age": true,
+      "gss": true,
+      "stateContribution": true,
+      "autumnPeriod": true,
+      "manager": 1,
+      "companyId": null,
+      "address": null,
+      "company": null,
+      "internshipTypeNavigation": null,
+      "managerNavigation": null,
+      "imes": [],
+      "internshipControlInfos": [],
+      "internshipDocControls": [],
+      "internshipExams": [],
+      "studentInternships": [
+        {
+          "id": 3,
+          "studentId": 1,
+          "internId": 15,
+          "student": {
+            "userId": 1,
+            "studentNumber": "201307008",
+            "user": {
+              "id": 1,
+              "departmentId": 6,
+              "firstName": "Eren2",
+              "lastName": "Torun",
+              "password": "34dd62e2bada500a006ea462a9646e36",
+              "email": "beneyim@gmail.com",
+              "telephone": "905385505368",
+              "tc": "11111111110",
+              "lastLogin": {
+                "year": 2022,
+                "month": 11,
+                "day": 15,
+                "dayOfWeek": 2,
+                "dayOfYear": 319,
+                "dayNumber": 738473
+              },
+              "department": null,
+              "teacher": null,
+              "admins": []
+            },
+            "studentInternships": []
+          }
+        }
+      ]
+    }
+  }
+]
