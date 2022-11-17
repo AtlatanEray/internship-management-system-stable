@@ -86,6 +86,53 @@ namespace IMSWebAPI.Controllers
             return NoContent();
         }
 
+        // PUT: api/InternshipControlInfoes/ApproveApplication
+        [HttpPut("ApproveApplication")]
+        public async Task<IActionResult> ApproveApplication(int internshipId, bool approve)
+        {
+
+            var iControl = await _context.InternshipControlInfos.Where(x => x.InternshipId == internshipId).ToListAsync();
+            if (iControl == null)
+            {
+                return BadRequest("wrong internShipId");
+            }
+
+            if(approve)
+            {
+                iControl.ForEach(x => x.InfoMessage = "ApplicationApproved");
+            }else
+            {
+                iControl.ForEach(x => x.InfoMessage = "ApplicationRejected");
+            }
+
+            for(int i=0; i<iControl.Count; i++)
+            {
+                _context.Entry(iControl[i]).State = EntityState.Modified;
+            }
+
+
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!InternshipControlInfoExists(internshipId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+
+
         // POST: api/InternshipControlInfoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
