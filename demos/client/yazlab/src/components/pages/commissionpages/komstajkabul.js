@@ -42,17 +42,27 @@ function Komstajkabul () {
                                             <thead>
                                                 <tr>
                                                     <th scope="col">ID</th>
+                                                    <th scope="col">Staj ID</th>
                                                     <th scope="col">Adı Soyadı</th>
                                                     <th scope="col">Staj Başvuru Formu</th>
                                                     <th scope="col">Kabul</th>
                                                     <th scope="col">Ret</th>
-                                                    {/* <th scope="col">Sil</th> */}
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             {students.map(student =>
                                                 <tr>
                                                     <th scope="row">{student.internship.studentInternships[0].student.studentNumber}</th>
+                                                    <td scope="row">{student.internshipId}</td>
+                                                    {/* <td>
+                                                        <button type="button" class="btn mr-1" data-toggle="modal" data-target="#silModal">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                                              </svg>
+                                                        </button>
+                                                    </td> */}
                                                     <td>{student.internship.studentInternships[0].student.user.firstName+" "+student.internship.studentInternships[0].student.user.lastName}</td>
                                                     <td><a data-toggle="modal" data-target="#notModal" onClick={()=>setPdf(student.internshipId)}>Görüntüle</a></td>
                                                     <td>
@@ -71,14 +81,7 @@ function Komstajkabul () {
                                                               </svg>
                                                         </button>
                                                     </td>
-                                                    {/* <td>
-                                                        <button type="button" class="btn mr-1" data-toggle="modal" data-target="#silModal">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                                                              </svg>
-                                                        </button>
-                                                    </td> */}
+                                                    
                                                 </tr>)}
 
                                             </tbody>
@@ -188,7 +191,7 @@ function Komstajkabul () {
                        
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kabul</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} >Kabul</button>
                     </div>
                   </div>
                 </div>
@@ -208,7 +211,7 @@ function Komstajkabul () {
                        
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Reddet</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}  >Reddet</button>
                     </div>
                   </div>
                 </div>
