@@ -162,9 +162,7 @@ namespace IMSWebAPI.Controllers
             var dd = _context.Internships
                 .Include(i => i.StudentInternships.Where(si => si.StudentId == userId))
                 .Include(i => i.Company)
-                .Include(i => i.Address)
-                .Include(i => i.Address.District)
-                .Include(i => i.Address.District.City)
+                .Include(x => x.InternshipControlInfos)
                 .ToListAsync().Result;
 
             //var list = _context.StudentInternships.Where(sii => sii.StudentId == id).Select(si => new { internId = si.InternId }).ToListAsync();

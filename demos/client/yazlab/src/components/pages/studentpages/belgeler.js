@@ -63,11 +63,11 @@ function Belgeler() {
         <>
         {internship.map(intern => 
             
-            ++count%2==0?
             <div className="card" style={{width: "18rem"}}>
             <image className="card-img-top"  alt="Card image cap"/>
             <div className="card-body">
                 <h5 className="card-title">{intern.internshipType==1?"Staj 1":"Staj 2"}</h5>
+                <h4>{intern.internshipControlInfos.length>0?intern.internshipControlInfos[0].infoMessage:"NO INFO"}</h4>
                 <p className="card-text">{intern.id}</p>
                 <a href={variables.API_URL+"Internships/download/"+intern.id} target="_blank" className="btn btn-primary" >İndir</a>
                 <div class="bg-light rounded h-100 p-4">
@@ -82,7 +82,6 @@ function Belgeler() {
             {console.log("c: "+count)}
         </div>
         
-        : null
             )}
             
          </>
