@@ -55,6 +55,20 @@ namespace IMSWebAPI.Controllers
             return internships;
         }
 
+        // GET: api/InternshipControlInfoes/ApprovedInternships
+        [HttpGet("approvedinternships")]
+        public async Task<ActionResult<IEnumerable<InternshipControlInfo>>> GetInternshipsApproved()
+        {
+            var internships = await _context.InternshipControlInfos
+                .Where(x => x.InfoMessage == "ApplicationApproved")
+                .Include(x => x.Internship)
+                .Include(x => x.Internship.StudentInternships)
+                .ThenInclude(x => x.Student.User)
+                .ToListAsync();
+            return internships;
+        }
+
+
         // PUT: api/InternshipControlInfoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
