@@ -42,6 +42,18 @@ namespace IMSWebAPI.Controllers
             return internshipControlInfo;
         }
 
+        // GET: api/InternshipControlInfoes/AllInternships
+        [HttpGet("allinternships")]
+        public async Task<ActionResult<IEnumerable<InternshipControlInfo>>> GetInternshipsAll()
+        {
+            var internships = await _context.InternshipControlInfos
+                .Include(x => x.Internship)
+                .Include(x => x.Internship.StudentInternships)
+                .ThenInclude(x => x.Student.User)
+                .ToListAsync();
+            return internships;
+        }
+
         // GET: api/InternshipControlInfoes/PendingInternships
         [HttpGet("pendinginternships")]
         public async Task<ActionResult<IEnumerable<InternshipControlInfo>>> GetInternshipsPending()
