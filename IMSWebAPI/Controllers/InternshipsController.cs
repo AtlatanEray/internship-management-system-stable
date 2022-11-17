@@ -310,6 +310,21 @@ namespace IMSWebAPI.Controllers
             return Ok();
         }
 
+        [HttpPost("UploadAfterInternshipDoc")]
+        public async Task<IActionResult> UploadAfterInternshipDoc(IFormFile evulationForm, IFormFile bookForm, long internId)
+        {
+            FileStream evulationStream = new FileStream(("wwwroot/pdf/EvulationFormPdfFiles/" + internId + ".pdf"), FileMode.Create, FileAccess.ReadWrite);
+            await evulationForm.CopyToAsync(evulationStream);
+            evulationStream.Dispose();
+
+            FileStream bookStream = new FileStream(("wwwroot/pdf/InternshipBookPdfFiles/" + internId + ".pdf"), FileMode.Create, FileAccess.ReadWrite);
+            await bookForm.CopyToAsync(bookStream);
+            bookStream.Dispose();
+
+            return Ok();
+
+        }
+
             // DELETE: api/Internships/5
             [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteInternship(long id)
