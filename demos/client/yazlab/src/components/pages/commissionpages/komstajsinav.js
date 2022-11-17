@@ -5,15 +5,20 @@ import {variables} from '../../../Variables.js';
 function Komstajsinav () {
 
     const [students, setStudent] = useState([]);
+    const [teachers, setTeachers] = useState([]);
+    const [id, setId] = useState();
     const [pdfBasvuru, setPdfBasvuru] = useState();
     const [pdfDefter, setPdfDefter] = useState();
     const [pdfDeg, setPdfDeg] = useState();
+    const [examTime, setExamTime] = useState(new Date());
+    var exam;
 
 
     useEffect(
         // Effect from first render
         () => {
            Student();
+           Teacher();
         },
         [] // Never re-runs
     );
@@ -33,6 +38,47 @@ function Komstajsinav () {
            console.log("çalış");
     }
 
+    function Teacher() {
+        fetch(variables.API_URL + "Teachers", {
+            headers: {
+                'Accept': 'application/json'
+                }
+            })
+           .then(response => response.json())
+           .then(data => {
+               setTeachers(data);
+           });
+
+           console.log(teachers);
+           console.log("çalış");
+    }
+
+    function postInternshipExam(exam)  {
+        var x;
+        fetch(variables.API_URL+'InternshipExams/setExamAssignment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            //'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).accessToken
+          },
+          body: exam
+          
+        }).then(res => res.json())
+        .then(response => {return (response.id);}, error => console.error('Error:', error));
+        console.log("intern Id: " + x);
+        return x;
+      }
+
+      function postExam() {
+        var x = JSON.stringify({
+            internshipId: pdfBasvuru,
+            teacherId: id,
+            examTime: '2022-11-17',
+        });
+        console.log(JSON.parse(x));
+        exam = postInternshipExam(x);
+    }
+
     return (
         <>
         <div class="container-fluid pt-4 px-4">
@@ -46,6 +92,7 @@ function Komstajsinav () {
                                                 <tr>
                                                     <th scope="col">ID</th>
                                                     <th scope="col">Adı Soyadı</th>
+                                                    <th scope="col">Staj ID</th>
                                                     <th scope="col">Staj Başvuru Formu</th>
                                                     <th scope="col">Staj Defteri</th>
                                                     <th scope="col">Staj Değerlendirme Formu</th>
@@ -58,11 +105,12 @@ function Komstajsinav () {
                                                 <tr>
                                                     <th scope="row">{student.internship.studentInternships[0].student.studentNumber}</th>
                                                     <td>{student.internship.studentInternships[0].student.user.firstName+" "+student.internship.studentInternships[0].student.user.lastName}</td>
+                                                    <td scope="row">{student.internshipId}</td>
                                                     <td><a data-toggle="modal" data-target="#basvuruModal" onClick={()=>setPdfBasvuru(student.internshipId)}>Görüntüle</a></td>
                                                     <td><a data-toggle="modal" data-target="#defterModal" onClick={()=>setPdfDefter(student.internshipId)}>Görüntüle</a></td>
                                                     <td><a data-toggle="modal" data-target="#degModal" onClick={()=>setPdfDeg(student.internshipId)}>Görüntüle</a></td>
                                                     <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Reddet</button></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sinavModal">Düzenle</button></td>                    
+                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sinavModal" onClick={()=>setPdfBasvuru(student.internshipId)}>Düzenle</button></td>                    
                     
                                                 </tr>)}
                                                 
@@ -271,19 +319,27 @@ function Komstajsinav () {
                                 <input type="date" class="form-control" id="date"/>
                             </form>
                         </div>    
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="floatingSelectOgretmen"
-                            aria-label="Floating label select example">
-                            <option selected>Seçiniz</option>
-                            <option value="1">..</option>
-                            <option value="2">..</option>
-                            <option value="3">..</option>
-                            </select>
-                            <label for="floatingSelectOgretmen">Değerlendirecek Öğretmen</label>
-                        </div> 
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="form-floating mb-3" style={{marginTop:"20px"}}>
+                                
+                                    <select onChange={() => setId(event.target.value)}
+                                     class="form-select" id="floatingSelectRol4"
+                                        aria-label="Floating label select example"
+                                         >
+                                            {teachers.map((teacher) => 
+                                                 <option value={teacher.user.id} >{teacher.user.firstName+" "+teacher.user.lastName}</option>
+                                             )}
+                                        <option selected>Seçiniz</option>
+                                    </select>
+                                    <label htmlFor="floatingSelectRol4">Öğretmenler</label>
+                                </div>
+                                                                 
+                                </div>
+                            </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kaydet</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick={postExam}>Kaydet</button>
                     </div>
                   </div>
                 </div>
