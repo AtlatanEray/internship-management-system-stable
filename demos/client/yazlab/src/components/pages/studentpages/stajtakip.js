@@ -3,13 +3,12 @@ import { useState } from "react";
 import {variables} from '../../../Variables.js';
 
 function Stajtakip () {
-    const {user, role, id, accessToken, previousLogin} = JSON.parse(localStorage.getItem('user'));
-    const [stajtakip, setStajtakip] = useState();
+    const [stajtakip, setStajtakip] = useState(1);
 
     useEffect(
         // Effect from first render
         () => {
-            fetch(variables.API_URL + "internships/getInternshipsByUserId/"+user.id, {
+            fetch(variables.API_URL + "internships/getInternshipsByUserId/", {
              headers: {
                  'Accept': 'application/json'
                  }

@@ -90,7 +90,7 @@ function Belgeler() {
         <>
         {internship.map(intern => 
             
-            <div className="card" style={{width: "18rem"}}>
+            <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px" }}>
             <image className="card-img-top"  alt="Card image cap"/>
             <div className="card-body">
                 <h5 className="card-title">{intern.internshipType==1?"Staj 1":"Staj 2"}</h5>

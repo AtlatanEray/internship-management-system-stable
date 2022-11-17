@@ -72,17 +72,17 @@ function Navbar({children}) {
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-check-square me-2"></i>Başvuru Kaydı</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="/stajtakip" class="dropdown-item">Staj Başvurusu</a>
-                            <a href="/imetakip" class="dropdown-item">İME Başvurusu</a>
+                            <a href="/belgeler" class="dropdown-item">Staj İşlemleri</a>
+                            <a href="/imetakip" class="dropdown-item">İME  İşlemleri</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
+                    {/* <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-sticky-note me-2"></i>Defter Yükleme</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="/stajdefteri" class="dropdown-item">Staj Defteri</a>
                             <a href="/imedefteri" class="dropdown-item">İME Defteri</a>
                         </div>
-                    </div>
+                    </div> */}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-chart-bar me-2"></i>Değerlendirmeler</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -107,7 +107,7 @@ function Navbar({children}) {
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                        {/* <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
                                     <img class="rounded-circle" src="img/user.jpg" alt="" style={{width: 40, height: 40}}/>
@@ -139,9 +139,9 @@ function Navbar({children}) {
                             </a>
                             <hr class="dropdown-divider"/>
                             <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
+                        </div> */}
                     </div>
-                    <div class="nav-item dropdown">
+                    {/* <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
                             <span class="d-none d-lg-inline-flex">Notificatin</span>
@@ -164,7 +164,7 @@ function Navbar({children}) {
                             <hr class="dropdown-divider"/>
                             <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
-                    </div>
+                    </div> */}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style={{width: 40, height: 40}}/>
