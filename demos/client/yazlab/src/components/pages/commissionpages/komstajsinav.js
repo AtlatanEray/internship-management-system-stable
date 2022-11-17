@@ -1,4 +1,38 @@
+import { useEffect } from 'react';
+import { useState } from "react";
+import {variables} from '../../../Variables.js';
+
 function Komstajsinav () {
+
+    const [students, setStudent] = useState([]);
+    const [pdfBasvuru, setPdfBasvuru] = useState();
+    const [pdfDefter, setPdfDefter] = useState();
+    const [pdfDeg, setPdfDeg] = useState();
+
+
+    useEffect(
+        // Effect from first render
+        () => {
+           Student();
+        },
+        [] // Never re-runs
+    );
+
+    function Student() {
+        fetch(variables.API_URL + "InternshipDocControls/GetInternshipForExamAssignment", {
+            headers: {
+                'Accept': 'application/json'
+                }
+            })
+           .then(response => response.json())
+           .then(data => {
+               setStudent(data);
+           });
+
+           console.log(students);
+           console.log("çalış");
+    }
+
     return (
         <>
         <div class="container-fluid pt-4 px-4">
@@ -20,41 +54,83 @@ function Komstajsinav () {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            {students.map(student =>
                                                 <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>John</td>
-                                                    <td><a href="#" >Görüntüle</a></td>
-                                                    <td><a href="#">Görüntüle</a></td>
-                                                    <td><a href="#">Görüntüle</a></td>
+                                                    <th scope="row">{student.internship.studentInternships[0].student.studentNumber}</th>
+                                                    <td>{student.internship.studentInternships[0].student.user.firstName+" "+student.internship.studentInternships[0].student.user.lastName}</td>
+                                                    <td><a data-toggle="modal" data-target="#basvuruModal" onClick={()=>setPdfBasvuru(student.internshipId)}>Görüntüle</a></td>
+                                                    <td><a data-toggle="modal" data-target="#defterModal" onClick={()=>setPdfDefter(student.internshipId)}>Görüntüle</a></td>
+                                                    <td><a data-toggle="modal" data-target="#degModal" onClick={()=>setPdfDeg(student.internshipId)}>Görüntüle</a></td>
                                                     <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Değerlendir</button></td>
                                                     <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sinavModal">Düzenle</button></td>                    
                     
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Mark</td>
-                                                    <td><a href="#">Görüntüle</a></td>
-                                                    <td><a href="#">Görüntüle</a></td>
-                                                    <td><a href="#">Görüntüle</a></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Değerlendir</button></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sinavModal">Düzenle</button></td>                    
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Jacob</td>
-                                                    <td><a href="#">Görüntüle</a></td>
-                                                    <td><a href="#">Görüntüle</a></td>
-                                                    <td><a href="#">Görüntüle</a></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Değerlendir</button></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sinavModal">Düzenle</button></td>                    
-                                                </tr>
+                                                </tr>)}
+                                                
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Güncelle</button>
-                                        <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kaydet</button>
                                     </div>
                                 </div>
                             </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="basvuruModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="notModalLabel">Öğrenci Staj Başvuru Formu</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe src={"https://localhost:7148/api/Internships/readpdf/"+pdfBasvuru}/> 
+                        
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" style={{backgroundColor:"#009933"}}>Kapat</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="defterModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="notModalLabel">Öğrenci Staj Defteri</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe src={"https://localhost:7148/api/Internships/readBookpdf/"+pdfDefter}/> 
+                        
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" style={{backgroundColor:"#009933"}}>Kapat</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="degModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="notModalLabel">Öğrenci Staj Değerlendirme Belgesi</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe src={"https://localhost:7148/api/Internships/readEvulationpdf/"+pdfDeg}/> 
+                        
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" style={{backgroundColor:"#009933"}}>Kapat</button>
+                    </div>
+                  </div>
                 </div>
             </div>
            
