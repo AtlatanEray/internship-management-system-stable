@@ -1,6 +1,5 @@
 {
-  "internshipId": 49,
-  "teacherId": 10,
-  "examTime": "2022-11-17",
-  "passed": false
+    "internshipId": 49,
+    "teacherId": 10,
+    "examTime": "2022-11-17"
 }
