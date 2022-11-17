@@ -163,6 +163,7 @@ namespace IMSWebAPI.Controllers
                 .Include(i => i.StudentInternships.Where(si => si.StudentId == userId))
                 .Include(i => i.Company)
                 .Include(x => x.InternshipControlInfos)
+                .Include(x => x.InternshipDocControls)
                 .ToListAsync().Result;
 
             //var list = _context.StudentInternships.Where(sii => sii.StudentId == id).Select(si => new { internId = si.InternId }).ToListAsync();

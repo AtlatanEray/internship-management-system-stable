@@ -93,7 +93,7 @@ function Belgeler() {
                 <h5 className="card-title">{intern.internshipType==1?"Staj 1":"Staj 2"}</h5>
                 <h4>{intern.internshipControlInfos.length>0?intern.internshipControlInfos[0].infoMessage:"NO INFO"}</h4>
                 <p className="card-text">Staj Id: {intern.id}</p>
-                {intern.internshipControlInfos.length>0&&intern.internshipControlInfos[0].infoMessage=="ApplicationApproved" ?
+                {intern.internshipControlInfos.length>0&&intern.internshipControlInfos[0].infoMessage=="ApplicationApproved"&&intern.internshipDocControls.length==0 ?
                 <>
                 <div class="bg-light rounded h-100 p-4">
                     <h6 class="mb-4">Staj Sonrası PDF Yükleme Alanı</h6>
@@ -106,8 +106,8 @@ function Belgeler() {
                     </div>
                 </div>
                 </>
-                :
-
+                :null}
+                {intern.internshipDocControls.length==0 ?
                 <>
                 <a href={variables.API_URL+"Internships/download/"+intern.id} target="_blank" className="btn btn-primary" >İndir</a>
                 <div class="bg-light rounded h-100 p-4">
@@ -117,7 +117,14 @@ function Belgeler() {
                         <input class="form-control" type="file" name="file" id="formFile" onChange={onChangeHandler}/>
                         <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} onClick={() => sendPdf(intern.id)}>Başvuru Yap</button>                              
                     </div>
-                </div></>}
+                </div></>:
+                <>
+                    <p>BookPath: {intern.internshipDocControls[0].internshipsBookPath}</p>
+                    <p>EvulationPath: {intern.internshipDocControls[0].evulationFormPath}</p>
+                    <p>accepted: {intern.internshipDocControls[0].accepted}</p>
+
+                </>
+                }
             </div>
             {console.log("c: "+count)}
         </div>
