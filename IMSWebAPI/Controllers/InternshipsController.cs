@@ -248,6 +248,23 @@ namespace IMSWebAPI.Controllers
             return new FileStreamResult(ms, "application/pdf");
         }
 
+        [HttpGet("readBookpdf/{id}")]
+        public IActionResult ReadBookPdf(long id)
+        {
+            string physicalPath = "wwwroot/pdf/InternshipBookPdfFiles/" + id + ".pdf";
+            byte[] pdfBytes = System.IO.File.ReadAllBytes(physicalPath);
+            MemoryStream ms = new MemoryStream(pdfBytes);
+            return new FileStreamResult(ms, "application/pdf");
+        }
+
+        [HttpGet("readEvulationpdf/{id}")]
+        public IActionResult ReadEvulationPdf(long id)
+        {
+            string physicalPath = "wwwroot/pdf/EvulationFormPdfFiles/" + id + ".pdf";
+            byte[] pdfBytes = System.IO.File.ReadAllBytes(physicalPath);
+            MemoryStream ms = new MemoryStream(pdfBytes);
+            return new FileStreamResult(ms, "application/pdf");
+        }
 
         // PUT: api/Internships/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
