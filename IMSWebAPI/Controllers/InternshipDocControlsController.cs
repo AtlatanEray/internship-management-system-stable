@@ -110,6 +110,22 @@ namespace IMSWebAPI.Controllers
             return NoContent();
         }
 
+        // DELETE: api/InternshipDocControlsByInternshipId/5
+        [HttpDelete("InternshipDocControlsByInternshipId/{internshipId}")]
+        public async Task<IActionResult> InternshipDocControlsByInternshipId(int internshipId)
+        {
+            var internshipDocControl = await _context.InternshipDocControls.Where(x => x.InternshipId == internshipId).FirstOrDefaultAsync();
+            if (internshipDocControl == null)
+            {
+                return NotFound();
+            }
+
+            _context.InternshipDocControls.Remove(internshipDocControl);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         private bool InternshipDocControlExists(int id)
         {
             return _context.InternshipDocControls.Any(e => e.Id == id);

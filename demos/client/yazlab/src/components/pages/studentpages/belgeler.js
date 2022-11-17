@@ -110,7 +110,7 @@ function Belgeler() {
                 </div>
                 </>
                 :null}
-                {intern.internshipControlInfos.length==0 ?
+                {intern.internshipControlInfos.length==0||intern.internshipControlInfos[0].infoMessage=="ApplicationRejected" ?
                 <>
                 <a href={variables.API_URL+"Internships/download/"+intern.id} target="_blank" className="btn btn-primary" >İndir</a>
                 <div class="bg-light rounded h-100 p-4">
@@ -126,7 +126,7 @@ function Belgeler() {
                     <>
                     <p>BookPath: {intern.internshipDocControls[0].internshipsBookPath}</p>
                     <p>EvulationPath: {intern.internshipDocControls[0].evulationFormPath}</p>
-                    <p>accepted: {intern.internshipDocControls[0].accepted}</p>
+                    <p>accepted: {intern.internshipDocControls[0].accepted? "Onaylandı": "Onaylanmadı"}</p>
                     </>
                     }
 
