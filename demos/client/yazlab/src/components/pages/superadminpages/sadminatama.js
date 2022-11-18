@@ -51,13 +51,17 @@ function Sadminatama () {
     }
 
     async function addadmin() {
- 
             var x = JSON.stringify({
-                teacherId: id
-                   
-            });
-            console.log(JSON.parse(x));
-            await postadmin(x);
+                userId: id
+            })
+            await fetch(variables.API_URL + "Admins", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'text/plain',
+                    'Content-Type': 'application/json-patch+json'
+                },
+                body: x
+            })
             admin();
 
 
