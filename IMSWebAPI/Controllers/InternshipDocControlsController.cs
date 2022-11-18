@@ -33,6 +33,7 @@ namespace IMSWebAPI.Controllers
         {
             return await _context.InternshipDocControls
                 .Where(x => x.InternshipsBookPath=="uploaded" || x.EvulationFormPath=="uploaded")
+                .Where(x => x.Accepted == null)
                 .Include(x => x.Internship.StudentInternships)
                 .ThenInclude(si => si.Student.User)
                 .ToListAsync();

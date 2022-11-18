@@ -93,18 +93,31 @@ function Belgeler() {
             <>
             {intern.internshipExams!=0 ?
             <>
-            {!(intern.internshipExams[0].passed)?
+            {intern.internshipExams[0].passed==null? 
+            <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px", borderWidth: 3 }}>
+            <div className="card-body">
+                <h5 className="card-title">{intern.company.formalName}</h5>
+                <h6>{intern.internshipType==1?"Staj 1":"Staj 2"}</h6>
+                <p >Staj Id: {intern.id}</p>
+                <b>Staj Sınavınız Onaylanmıştır.</b>
+                <p><b>Sınav Sorumlunuz:</b> {intern.internshipExams[0].teacher.user.firstName + " " + intern.internshipExams[0].teacher.user.lastName}</p>
+                <p><b>Sınav Tarihiniz:</b> {(intern.internshipExams[0].examTime).substring(0,10)}</p>
+            </div>
+        </div>
+                        
+            : null}
+            {intern.internshipExams[0].passed==false?
             <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px", borderWidth: 3 }}>
                 <div className="card-body">
                     <h5 className="card-title">{intern.company.formalName}</h5>
                     <h6>{intern.internshipType==1?"Staj 1":"Staj 2"}</h6>
                     <p >Staj Id: {intern.id}</p>
-                    <b>Staj Sınavınız Onaylanmıştır.</b>
-                    <p><b>Sınav Sorumlunuz:</b> {intern.internshipExams[0].teacher.user.firstName + " " + intern.internshipExams[0].teacher.user.lastName}</p>
-                    <p><b>Sınav Tarihiniz:</b> {(intern.internshipExams[0].examTime).substring(0,10)}</p>
+                    <h4 style={{color: "red"}}>STAJINIZ RED EDİLMİŞTİR.</h4>
+                    
                 </div>
-            </div>
-            : 
+            </div>        
+            :null}
+            {intern.internshipExams[0].passed==true?
             <>
                 <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px", borderWidth: 3 }}>
                     <div className="card-body">
@@ -116,7 +129,7 @@ function Belgeler() {
                     </div>
                 </div>
             </>
-            }
+            :null}
             </>
             :
             
