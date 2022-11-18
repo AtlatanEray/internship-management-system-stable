@@ -90,7 +90,7 @@ namespace IMSWebAPI.Controllers
                         var adm = await _context.Admins.Where(a => a.UserId == user.Id).ToListAsync();
                         if (adm.Count > 0)
                         {
-                            if (adm[0].Id == user.Id)
+                            if (adm[0].UserId == user.Id)
                             {
                                 if (adm[0].SuperAdmin)
                                 {

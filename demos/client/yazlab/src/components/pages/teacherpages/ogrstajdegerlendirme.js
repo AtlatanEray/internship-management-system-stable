@@ -123,7 +123,7 @@ function Ogrstajdegerlendirme() {
                     </div>
                     <div class="modal-body">
                         <iframe  style={{frameborder:"0", marginheight:"0", marginwidth:"0",
-                             width:"100%", height:"100%"}} src={"https://localhost:7148/api/Internships/readpdf/"+pdfBasvuru}/> 
+                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readpdf/"+pdfBasvuru}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -144,7 +144,7 @@ function Ogrstajdegerlendirme() {
                     </div>
                     <div class="modal-body">
                         <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
-                             width:"100%", height:"100%"}} src={"https://localhost:7148/api/Internships/readBookpdf/"+pdfDefter}/> 
+                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readBookpdf/"+pdfDefter}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -165,7 +165,7 @@ function Ogrstajdegerlendirme() {
                     </div>
                     <div class="modal-body">
                         <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
-                             width:"100%", height:"100%"}} src={"https://localhost:7148/api/Internships/readEvulationpdf/"+pdfDeg}/> 
+                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readEvulationpdf/"+pdfDeg}/> 
                         
                     </div>
                     <div class="modal-footer">
