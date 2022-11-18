@@ -151,7 +151,8 @@ function Komstajsinav () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        <iframe src={"https://localhost:7148/api/Internships/readpdf/"+pdfBasvuru}/> 
+                        <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
+                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readpdf/"+pdfBasvuru}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -171,7 +172,8 @@ function Komstajsinav () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        <iframe src={"https://localhost:7148/api/Internships/readBookpdf/"+pdfDefter}/> 
+                        <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
+                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readBookpdf/"+pdfDefter}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -191,7 +193,8 @@ function Komstajsinav () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        <iframe src={"https://localhost:7148/api/Internships/readEvulationpdf/"+pdfDeg}/> 
+                        <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
+                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readEvulationpdf/"+pdfDeg}/> 
                         
                     </div>
                     <div class="modal-footer">
