@@ -1,12 +1,11 @@
 import {variables} from '../../../Variables.js';
 import { useEffect } from 'react';
 import { useState } from "react";
-import {postCommission, deleteCommission} from '../../hooks/useAddCommission.js';
 
 function Sadminatama () {
 
     const [teachers, setTeachers] = useState([]);
-    const [commissions, setCommission] = useState([]);
+    const [admins, setAdmin] = useState([]);
     const [id, setId] = useState();
     const [comid, setComid] = useState();
 
@@ -14,7 +13,7 @@ function Sadminatama () {
         // Effect from first render
         () => {
            Teacher();
-           Commission();
+           admin();
         },
         [] // Never re-runs
     );
@@ -31,41 +30,46 @@ function Sadminatama () {
            });
 
            console.log(teachers);
-           console.log("çalış");
+           console.log("çalışs");
     }
 
-    function Commission() {
-        fetch(variables.API_URL + "Commissions", {
+    async function admin() {
+        await fetch(variables.API_URL + "Admins/ListAdmins", {
             headers: {
                 'Accept': 'application/json'
                 }
             })
            .then(response => response.json())
            .then(data => {
-               setCommission(data);
+            console.log("deneme deneme");
+            console.log(data);
+               setAdmin(data);
            });
 
-           console.log(commissions);
+           console.log(admins);
            console.log("çalış");
     }
 
-    async function addCommission() {
+    async function addadmin() {
  
             var x = JSON.stringify({
                 teacherId: id
                    
             });
             console.log(JSON.parse(x));
-            await postCommission(x);
-            Commission();
+            await postadmin(x);
+            admin();
 
 
     }
 
-    async function delCommission() {
+    async function deladmin() {
         
-        await deleteCommission(comid);
-        await Commission();
+        await fetch(variables.API_URL + "Admins/DeleteAdminByUserId/"+comid,{
+            method: 'DELETE',
+            
+        } );
+        await admin();
 
     }
 
@@ -75,7 +79,7 @@ function Sadminatama () {
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Yeni Komisyon Üyesi Ekleme</h6>
+                            <h6 class="mb-4">Yeni Komisyon Üyesi Ekleme as</h6>
                             
                             <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#yenikomisyonModal">Komisyon Üyesi Ekle</button>
                         </div>
@@ -111,7 +115,7 @@ function Sadminatama () {
                                 </div>
                             </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}  onClick={addCommission}>Ekle</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}  onClick={addadmin}>Ekle</button>
                     </div>
                   </div>
                 </div>
@@ -135,14 +139,14 @@ function Sadminatama () {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {commissions.map(commission =>
+                                                {admins.map(admin =>
                                                 <tr>
-                                                    <th scope="row">{commission.teacher.registrationNumber}</th>                               
-                                                    <td><a href="#">{commission.teacher.user.firstName}</a></td>
-                                                    <td><a href="#">{commission.teacher.user.lastName}</a></td>     
-                                                    <td><a href="#">{commission.teacher.user.telephone}</a></td> 
-                                                    <td><a href="#">{commission.teacher.user.email}</a></td>                                              
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#notModal" onClick= { () => setComid(commission.teacher.user.id)}>X</button></td>
+                                                    <th scope="row">{admin.user.teacher.registrationNumber}</th>                               
+                                                    <td><a href="#">{admin.user.firstName}</a></td>
+                                                    <td><a href="#">{admin.user.lastName}</a></td>     
+                                                    <td><a href="#">{admin.user.telephone}</a></td> 
+                                                    <td><a href="#">{admin.user.email}</a></td>                                              
+                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#notModal" onClick= { () => setComid(admin.userId)}>X</button></td>
                                                 </tr>)}
                                                 
                                             </tbody>
@@ -172,7 +176,7 @@ function Sadminatama () {
                         
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick={delCommission}>Çıkar</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick={deladmin}>Çıkar</button>
                     </div>
                   </div>
                 </div>

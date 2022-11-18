@@ -27,6 +27,15 @@ namespace IMSWebAPI.Controllers
             return await _context.Admins.ToListAsync();
         }
 
+        // GET: api/Admins/ListAdmins
+        [HttpGet("ListAdmins")]
+        public async Task<ActionResult<IEnumerable<Admin>>> ListAdmins()
+        {
+            return await _context.Admins.Where(x => x.SuperAdmin == false)
+                .Include(x => x.User.Teacher)
+                .ToListAsync();
+        }
+
         // GET: api/Admins/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Admin>> GetAdmin(short id)
@@ -88,6 +97,22 @@ namespace IMSWebAPI.Controllers
         public async Task<IActionResult> DeleteAdmin(short id)
         {
             var admin = await _context.Admins.FindAsync(id);
+            if (admin == null)
+            {
+                return NotFound();
+            }
+
+            _context.Admins.Remove(admin);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/Admins/DeleteAdminByUserId/5
+        [HttpDelete("DeleteAdminByUserId/{id}")]
+        public async Task<IActionResult> DeleteAdminByUserId(long id)
+        {
+            var admin = await _context.Admins.Where(x => x.UserId == id).FirstOrDefaultAsync();
             if (admin == null)
             {
                 return NotFound();

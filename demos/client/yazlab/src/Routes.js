@@ -40,7 +40,7 @@ import Ystajsinav from "./components/pages/adminpages/ystajsinav";
 import Ystajkabul from "./components/pages/adminpages/ystajkabul";
 import Ystajdegerlendirme from "./components/pages/adminpages/ystajdegerlendirme";
 
-import Sadminatama  from "./components/pages/adminpages/ykomisyonatama";
+import Sadminatama  from "./components/pages/superadminpages/sadminatama";
  
 import { useUserContext } from "./components/hooks/useUserContext";
 
@@ -107,7 +107,7 @@ const Routess = () => {
             <Route exact path= "/yimekabul" element={role="commission" ? <Navbarc><Komimekabul/></Navbarc> : <Navigate to="/login"/>}/>
             <Route exact path= "/yimedegerlendirme" element={role="commission" ? <Navbarc><Komimedegerlendirme/></Navbarc> : <Navigate to="/login"/>}/> */}
             
-            <Route exact path= "/sadminatama" element={role=="superadmin" ? <Navbara><Sadminatama/></Navbara> : <Navigate to="/login"/>}/>
+            <Route exact path= "/sadminatama" element={<Navbara><Sadminatama/></Navbara>}/>
 
             {/* login page */}
             <Route exact path= "/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
