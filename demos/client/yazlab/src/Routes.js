@@ -39,6 +39,8 @@ import Ystajtakip from "./components/pages/adminpages/ystajtakip";
 import Ystajsinav from "./components/pages/adminpages/ystajsinav";
 import Ystajkabul from "./components/pages/adminpages/ystajkabul";
 import Ystajdegerlendirme from "./components/pages/adminpages/ystajdegerlendirme";
+
+import Sadminatama  from "./components/pages/adminpages/ykomisyonatama";
  
 import { useUserContext } from "./components/hooks/useUserContext";
 
@@ -62,7 +64,7 @@ const Routess = () => {
             <Route exact path= "/" element={role=="student" ?  <Navbar><Home/></Navbar> : 
             <>{role=="teacher" ? <Navbart><Home/></Navbart> : 
             <>{role=="commission" ? <Navbarc><Home/></Navbarc> :
-            <>{role=="admin" ? <Navbara><Home/></Navbara> : <Navigate to="/login"/> }</>}</>}</>} />
+            <>{(role=="admin" || role=="superadmin") ? <Navbara><Home/></Navbara> : <Navigate to="/login"/> }</>}</>}</>} />
             {/* <Route exact path= "/home" element={role!="logout" ? <Navbar><Home/></Navbar> : <Navigate to="/login"/>}/> */}
             {/* <Route exact path= "/imebasvuru" element={role="student" ? <Navbar><Imebasvuru/></Navbar> : <Navigate to="/login"/>}/> */}
             {/* <Route exact path= "/imedefteri" element={role="student" ? <Navbar><Imedefteri/></Navbar> : <Navigate to="/login"/>}/> */}
@@ -93,13 +95,13 @@ const Routess = () => {
             <Route exact path= "/komimedegerlendirme" element={role="commission" ? <Navbarc><Komimedegerlendirme/></Navbarc> : <Navigate to="/login"/>}/> */}
 
             {/* role="admin" */}
-            <Route exact path= "/" element={role!="admin" ? <Navbara><Home/></Navbara> : <Navigate to="/login"/>}/>
-            <Route exact path= "/ykullaniciekle" element={role="admin" ? <Navbara><Ykullaniciekle/></Navbara> : <Navigate to="/login"/>}/>
-            <Route exact path= "/ykomisyonatama" element={role="admin" ? <Navbara><Ykomisyonatama/></Navbara> : <Navigate to="/login"/>}/>
-            <Route exact path= "/ystajtakip" element={role="admin" ? <Navbara><Ystajtakip/></Navbara> : <Navigate to="/login"/>}/>
-            <Route exact path= "/ystajsinav" element={role="admin" ? <Navbara><Ystajsinav/></Navbara> : <Navigate to="/login"/>}/>
-            <Route exact path= "/ystajkabul" element={role="admin" ? <Navbara><Ystajkabul/></Navbara> : <Navigate to="/login"/>}/>
-            <Route exact path= "/ystajdegerlendirme" element={role="admin" ? <Navbara><Ystajdegerlendirme/></Navbara> : <Navigate to="/login"/>}/>
+            <Route exact path= "/" element={(role!="admin" || role!="superadmin") ? <Navbara><Home/></Navbara> : <Navigate to="/login"/>}/>
+            <Route exact path= "/ykullaniciekle" element={(role="admin" || role=="superadmin") ? <Navbara><Ykullaniciekle/></Navbara> : <Navigate to="/login"/>}/>
+            <Route exact path= "/ykomisyonatama" element={(role="admin" || role=="superadmin") ? <Navbara><Ykomisyonatama/></Navbara> : <Navigate to="/login"/>}/>
+            <Route exact path= "/ystajtakip" element={(role="admin" || role=="superadmin") ? <Navbara><Ystajtakip/></Navbara> : <Navigate to="/login"/>}/>
+            <Route exact path= "/ystajsinav" element={(role="admin" || role=="superadmin") ? <Navbara><Ystajsinav/></Navbara> : <Navigate to="/login"/>}/>
+            <Route exact path= "/ystajkabul" element={(role="admin" || role=="superadmin") ? <Navbara><Ystajkabul/></Navbara> : <Navigate to="/login"/>}/>
+            <Route exact path= "/ystajdegerlendirme" element={(role="admin" || role=="superadmin") ? <Navbara><Ystajdegerlendirme/></Navbara> : <Navigate to="/login"/>}/>
             {/* <Route exact path= "/yimetakip" element={role="commission" ? <Navbarc><Komimetakip/></Navbarc> : <Navigate to="/login"/>}/>
             <Route exact path= "/yimesinav" element={role="commission" ? <Navbarc><Komimesinav/></Navbarc> : <Navigate to="/login"/>}/>
             <Route exact path= "/yimekabul" element={role="commission" ? <Navbarc><Komimekabul/></Navbarc> : <Navigate to="/login"/>}/>
