@@ -107,6 +107,7 @@ const Routess = () => {
             <Route exact path= "/yimekabul" element={role="commission" ? <Navbarc><Komimekabul/></Navbarc> : <Navigate to="/login"/>}/>
             <Route exact path= "/yimedegerlendirme" element={role="commission" ? <Navbarc><Komimedegerlendirme/></Navbarc> : <Navigate to="/login"/>}/> */}
             
+            <Route exact path= "/sadminatama" element={role=="superadmin" ? <Navbara><Sadminatama/></Navbara> : <Navigate to="/login"/>}/>
 
             {/* login page */}
             <Route exact path= "/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
