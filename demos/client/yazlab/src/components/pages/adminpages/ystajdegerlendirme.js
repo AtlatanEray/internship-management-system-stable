@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useState } from "react";
 import {variables} from '../../../Variables.js';
 
-function Komstajdegerlendirme() {
+function Ystajdegerlendirme() {
 
     const {user, role, id, accessToken, previousLogin} = JSON.parse(localStorage.getItem('user'));
 
@@ -294,4 +294,4 @@ function Komstajdegerlendirme() {
     )
 }
 
-export default Komstajdegerlendirme;
+export default Ystajdegerlendirme;

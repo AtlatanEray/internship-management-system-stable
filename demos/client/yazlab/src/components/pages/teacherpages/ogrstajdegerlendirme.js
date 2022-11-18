@@ -10,7 +10,7 @@ function Ogrstajdegerlendirme() {
     const [pdfBasvuru, setPdfBasvuru] = useState();
     const [pdfDefter, setPdfDefter] = useState();
     const [pdfDeg, setPdfDeg] = useState();
-
+    const [idd, setId] = useState();
     const [studentName, setStudentName] = useState("");
     const [studentTc, setStudentTc] = useState(Date());
     const [baslangic, setBaslangic] = useState(Date());
@@ -46,7 +46,7 @@ function Ogrstajdegerlendirme() {
     }
 
     async function Staj() {
-        await fetch(variables.API_URL + "InternshipExams/Mark?internshipId="+pdfBasvuru+"&passed="+passed+"&acceptedDay="+kabulgun, {
+        await fetch(variables.API_URL + "InternshipExams/Mark?id="+idd+"&passed="+passed+"&acceptedDay="+kabulgun, {
             headers: {
                 'Accept': '*/*'
                 },
@@ -76,7 +76,8 @@ function Ogrstajdegerlendirme() {
                                                     <th scope="col">Staj Defteri</th>
                                                     <th scope="col">Staj Değerlendirme Formu</th>
                                                     {/* <th scope="col">Belge Değerlendirme</th> */}
-                                                    <th scope="col">Staj 1</th>
+                                                    <th scope="col">Sınav Tarihi</th>
+                                                    <th scope="col">Staj</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -89,13 +90,15 @@ function Ogrstajdegerlendirme() {
                                                     <td><a data-toggle="modal" data-target="#defterModal" onClick={()=>setPdfDefter(student.internshipId)}>Görüntüle</a></td>
                                                     <td><a data-toggle="modal" data-target="#degModal" onClick={()=>setPdfDeg(student.internshipId)}>Görüntüle</a></td>
                                                     {/* <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Değerlendir</button></td> */}
+                                                    <td scope="row">{student.examTime.substring(0,10)}</td>
                                                     <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#notModal"  onClick={()=>(setPdfBasvuru(student.internshipId),
                                                         setStudentName(student.internship.studentInternships[0].student.user.firstName+" "+student.internship.studentInternships[0].student.user.lastName),
                                                         setStudentTc(student.internship.studentInternships[0].student.user.tc),
                                                         setBaslangic(student.internship.startingDate),
                                                         setBitis(student.internship.endingDate),
                                                         setKurum(student.internship.company.formalName),
-                                                        setGun(student.internship.workDay))}>Notlandır</button></td>               
+                                                        setGun(student.internship.workDay),
+                                                        setId(student.id))}>Notlandır</button></td>               
                     
                                                 </tr>)}
                                                 

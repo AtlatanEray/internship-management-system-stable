@@ -18,6 +18,12 @@ export const Changepass = () => {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ userId: userId, oldPassword: oldPassword, newPassword: newPassword})
         });
+        if(response) {
+            var x = JSON.parse(localStorage.getItem('user'));
+            console.log(x);
+            x.user.lastLogin = "a";
+            localStorage.setItem('user',JSON.stringify(x)); 
+        }
 
         const json = await response.json();
         console.log(json);

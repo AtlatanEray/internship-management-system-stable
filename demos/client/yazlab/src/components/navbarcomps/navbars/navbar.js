@@ -20,7 +20,7 @@ function Navbar({children}) {
     const [newPassword, setNewpassword] = useState("");
     const {change,error,isLoading} = Changepass();
     const [errorpass,setError] = useState("");
-    const userId = user.Id;
+    const userId = user.id;
   
     const changeHandler = async (e) => {
       e.preventDefault();
@@ -47,7 +47,7 @@ function Navbar({children}) {
         <div className="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <img src="https://www.kouvakif.org.tr/img/logo/footer.png " weight="120" height="120" style={{display: 'block', margin: 'auto'}}/>
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="#" class="navbar-brand mx-4 mb-3">
                     <h3 class>Staj Takip Sistemi</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -187,7 +187,7 @@ function Navbar({children}) {
           
   
           {/* Modal Start */}
-          <div class="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div  class={"modal fade"+ (user.lastLogin==null? "show d-block":null)} id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
