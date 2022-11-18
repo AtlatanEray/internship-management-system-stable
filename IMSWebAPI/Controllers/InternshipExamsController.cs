@@ -134,10 +134,6 @@ namespace IMSWebAPI.Controllers
             {
                 internshipExam.AcceptedWorkDay = 0;
             }
-            if(internshipExam.Passed == null)
-            {
-                internshipExam.Passed = false;
-            }
             //internshipExam.ExamTime = new DateOnly(internshipExam.ExamTime.Year, 1, 1);
             _context.InternshipExams.Add(internshipExam);
 
