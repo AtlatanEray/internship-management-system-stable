@@ -87,8 +87,6 @@ namespace IMSWebAPI.Controllers
 
                         }
                     }
-                    else
-                    {
                         var adm = await _context.Admins.Where(a => a.UserId == user.Id).ToListAsync();
                         if (adm.Count > 0)
                         {
@@ -104,7 +102,7 @@ namespace IMSWebAPI.Controllers
                                 }
                             }
                         }
-                    }
+                    
                 }else
                 {
                     return BadRequest("wrong teacher pass");
