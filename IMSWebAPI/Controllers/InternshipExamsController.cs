@@ -83,6 +83,37 @@ namespace IMSWebAPI.Controllers
             return NoContent();
         }
 
+        // PUT: api/InternshipExams/Mark
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("Mark")]
+        public async Task<IActionResult> Mark(int internshipId, bool passed, short acceptedDay)
+        {
+            
+            var intern = _context.InternshipExams.Where(x => x.InternshipId == internshipId).FirstOrDefault();
+            intern.Passed = passed;
+            intern.AcceptedWorkDay = acceptedDay;
+
+            _context.Entry(intern).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!InternshipExamExistsByInternshipId(internshipId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/InternshipExams
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -139,6 +170,11 @@ namespace IMSWebAPI.Controllers
         private bool InternshipExamExists(int id)
         {
             return _context.InternshipExams.Any(e => e.Id == id);
+        }
+
+        private bool InternshipExamExistsByInternshipId(int id)
+        {
+            return _context.InternshipExams.Any(e => e.InternshipId == id);
         }
     }
 }
