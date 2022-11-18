@@ -83,9 +83,9 @@ function Sadminatama () {
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Yeni Komisyon Üyesi Ekleme as</h6>
+                            <h6 class="mb-4">Yeni admin Üyesi Ekleme as</h6>
                             
-                            <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#yenikomisyonModal">Komisyon Üyesi Ekle</button>
+                            <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#yenikomisyonModal">admin Üyesi Ekle</button>
                         </div>
                     </div>
 
@@ -95,7 +95,7 @@ function Sadminatama () {
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="sifreataModalLabel">Komisyon Üyesi Ekleme</h5>
+                      <h5 class="modal-title" id="sifreataModalLabel">admin Üyesi Ekleme</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -139,7 +139,7 @@ function Sadminatama () {
                                                     <th scope="col">Soyadı</th>
                                                     <th scope="col">Telefon Numarası</th>
                                                     <th scope="col">Email</th>
-                                                    <th scope="col">Komisyondan Çıkar</th>
+                                                    <th scope="col">admindan Çıkar</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -168,14 +168,14 @@ function Sadminatama () {
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="notModalLabel">Komisyon Üyesini Çıkarma</h5>
+                      <h5 class="modal-title" id="notModalLabel">admin Üyesini Çıkarma</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
                         
-                        <p>Bu kişiyi komisyondan üyelerinden çıkarmak istediğinize emin misiniz?</p>
+                        <p>Bu kişiyi admindan üyelerinden çıkarmak istediğinize emin misiniz?</p>
                         
                         
                     </div>

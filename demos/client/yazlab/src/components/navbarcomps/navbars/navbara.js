@@ -70,6 +70,9 @@ function Navbara({children}) {
                     <a href="index.html" class="nav-item nav-link active"><i class="fa fa-home me-2"></i>Ana Sayfa</a>
                     <a href="/ykullaniciekle" class="nav-item nav-link"><i class="fa fa-user-plus me-2"></i>Kullanıcı Ekle</a>
                     <a href="/ykomisyonatama" class="nav-item nav-link"><i class="fa fa-user-plus me-2"></i>Komisyon Üyesi</a>
+                    {role=="superadmin"?
+                                        <a href="/sadminatama" class="nav-item nav-link"><i class="fa fa-user-plus me-2"></i>Admin Üyesi</a>
+                    :null}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-clipboard-check me-2"></i>Başvuru Kabul</a>
                         <div class="dropdown-menu bg-transparent border-0">
