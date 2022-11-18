@@ -32,6 +32,7 @@ namespace IMSWebAPI.Controllers
         public async Task<ActionResult<IEnumerable<InternshipExam>>> ListByTeacherUserId(long userId)
         {
             return await _context.InternshipExams
+                .Where(x => x.Passed == null)
                 .Where(x => x.TeacherId == userId)
                 .Include(x => x.Internship.Company)
                 .Include(x => x.Internship.StudentInternships).ThenInclude(si => si.Student.User)
