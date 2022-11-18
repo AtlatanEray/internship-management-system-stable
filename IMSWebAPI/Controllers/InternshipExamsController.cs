@@ -87,10 +87,10 @@ namespace IMSWebAPI.Controllers
         // PUT: api/InternshipExams/Mark
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("Mark")]
-        public async Task<IActionResult> Mark(int internshipId, bool passed, short acceptedDay)
+        public async Task<IActionResult> Mark(int id, bool passed, short acceptedDay)
         {
             
-            var intern = _context.InternshipExams.Where(x => x.InternshipId == internshipId).FirstOrDefault();
+            var intern = await _context.InternshipExams.FindAsync();
             intern.Passed = passed;
             intern.AcceptedWorkDay = acceptedDay;
 
@@ -102,7 +102,7 @@ namespace IMSWebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!InternshipExamExistsByInternshipId(internshipId))
+                if (!InternshipExamExists(id))
                 {
                     return NotFound();
                 }
