@@ -530,10 +530,8 @@ function Stajbasvuru() {
             </div>
                     <br/>
                     <div class="m-n2" style={{position: "absolute", right: 5}}>
-                        <button onClick={() => console.log("cliick")}>Tıkla</button>
                         <button type="button" class="btn btn-success rounded-pill m-2 float-right" style={{backgroundColor:"#009933"}} onClick={() => postForm()}>Kaydet</button>
-                        <button type="button" class="btn btn-success rounded-pill m-2" style={{backgroundColor:"#009933"}}>PDF Oluştur</button>
-                        <button type="button" class="btn btn-success rounded-pill m-2" style={{backgroundColor:"#009933"}} onClick={() => downloadPDF()}>Dosyayı kaydet</button>
+                        
                     </div>
                     {/* {error && <div className="error">{error}</div>} */}
                     

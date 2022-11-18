@@ -26,7 +26,7 @@ function Ykullaniciekle () {
         var x = JSON.stringify({
             firstName: name,
             lastName: lastName,
-            departmentId: 1,
+            departmentId: 6,
             password: "string",
             email: email,
             telephone: phone,
@@ -44,7 +44,7 @@ function Ykullaniciekle () {
         var x = JSON.stringify({
             firstName: name,
             lastName: lastName,
-            departmentId: 1,
+            departmentId: 6,
             password: "string",
             email: email,
             telephone: phone,
@@ -61,7 +61,7 @@ function Ykullaniciekle () {
         var x = JSON.stringify({
             firstName: name,
             lastName: lastName,
-            departmentId: 1,
+            departmentId: 6,
             password: "string",
             email: email,
             telephone: phone,
