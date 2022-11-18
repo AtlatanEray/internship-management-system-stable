@@ -104,9 +104,8 @@ function Navbart({children}) {
        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
            
        </a>
-       <a href="#" class="sidebar-toggler flex-shrink-0">
-           <i class="fa fa-bars"></i>
-       </a>
+
+
        <form class="d-none d-md-flex ms-4">
            <input class="form-control border-0" type="search" placeholder="Search"/>
        </form>

@@ -11,8 +11,10 @@ function Komstajsinav () {
     const [pdfDefter, setPdfDefter] = useState();
     const [pdfDeg, setPdfDeg] = useState();
     const [examTime, setExamTime] = useState(new Date());
+    const [studentName, setStudentName] = useState("");
+    const [studentTc, setStudentTc] = useState();
     var exam;
-
+    //üstteki satırı silme 
 
     useEffect(
         // Effect from first render
@@ -73,11 +75,26 @@ function Komstajsinav () {
         var x = JSON.stringify({
             internshipId: pdfBasvuru,
             teacherId: id,
-            examTime: '2022-11-17',
+            examTime: examTime,
         });
         console.log(JSON.parse(x));
+        console.log(examTime);
         exam = postInternshipExam(x);
     }
+
+    async function deleteStaj()  {
+        var x;
+        await fetch(variables.API_URL+'InternshipDocControls/InternshipDocControlsByInternshipId/'+pdfBasvuru, {
+          method: 'DELETE',
+          headers: {
+            //'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).accessToken
+          },
+          
+          
+        });
+        console.log("staj id: " + x);
+        return x;
+      }
 
     return (
         <>
@@ -109,8 +126,10 @@ function Komstajsinav () {
                                                     <td><a data-toggle="modal" data-target="#basvuruModal" onClick={()=>setPdfBasvuru(student.internshipId)}>Görüntüle</a></td>
                                                     <td><a data-toggle="modal" data-target="#defterModal" onClick={()=>setPdfDefter(student.internshipId)}>Görüntüle</a></td>
                                                     <td><a data-toggle="modal" data-target="#degModal" onClick={()=>setPdfDeg(student.internshipId)}>Görüntüle</a></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Reddet</button></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sinavModal" onClick={()=>setPdfBasvuru(student.internshipId)}>Düzenle</button></td>                    
+                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal" onClick={()=>setPdfBasvuru(student.internshipId)}>Reddet</button></td>
+                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sinavModal" onClick={()=>(setPdfBasvuru(student.internshipId),
+                                                        setStudentName(student.internship.studentInternships[0].student.user.firstName+" "+student.internship.studentInternships[0].student.user.lastName),
+                                                        setStudentTc(student.internship.studentInternships[0].student.user.tc))}>Düzenle</button></td>                    
                     
                                                 </tr>)}
                                                 
@@ -285,7 +304,7 @@ function Komstajsinav () {
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Reddet</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick={deleteStaj}>Reddet</button>
                     </div>
                   </div>
                 </div>
@@ -304,19 +323,17 @@ function Komstajsinav () {
                         <div class="form-floating mb-3">
                             <input type = "text" class="form-control" id="adSoyad"
                                         placeholder="adSoyad"
-                                    aria-label="default input example" disabled/>
-                                    <label for="adSoyad">Ad Soyad</label>
+                                    aria-label="default input example" disabled value={studentName}/>                          
                         </div>
                         <div class="form-floating mb-3">
                             <input type = "text" class="form-control" id="tc"
                                         placeholder="tc"
-                                    aria-label="default input example" disabled/>
-                                    <label for="tc">TC</label>
+                                    aria-label="default input example" disabled value={studentTc}/>
                         </div>
                         <div class ="mb-3">
                             <label for="form-horizontal">Değerlendirme Tarihi</label>
                             <form class="form-horizontal" role="form">
-                                <input type="date" class="form-control" id="date"/>
+                                <input type="date" class="form-control" id="date" onChange={() => setExamTime(event.target.value)}/>
                             </form>
                         </div>    
                         <div class="row">
