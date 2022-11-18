@@ -90,7 +90,7 @@ namespace IMSWebAPI.Controllers
         public async Task<IActionResult> Mark(int id, bool passed, short acceptedDay)
         {
             
-            var intern = await _context.InternshipExams.FindAsync();
+            var intern = await _context.InternshipExams.FindAsync(id);
             intern.Passed = passed;
             intern.AcceptedWorkDay = acceptedDay;
 
