@@ -89,12 +89,56 @@ function Belgeler() {
     return (
         <>
         {internship.map(intern => 
-            
-            <div className="card" style={{width: "18rem"}}>
-            <image className="card-img-top"  alt="Card image cap"/>
+
+            <>
+            {intern.internshipExams!=0 ?
+            <>
+            {intern.internshipExams[0].passed==null? 
+            <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px", borderWidth: 3 }}>
             <div className="card-body">
-                <h5 className="card-title">{intern.internshipType==1?"Staj 1":"Staj 2"}</h5>
-                <h4>{intern.internshipControlInfos.length>0?intern.internshipControlInfos[0].infoMessage:"NO INFO"}</h4>
+                <h5 className="card-title">{intern.company.formalName}</h5>
+                <h6>{intern.internshipType==1?"Staj 1":"Staj 2"}</h6>
+                <p >Staj Id: {intern.id}</p>
+                <b>Staj Sınavınız Onaylanmıştır.</b>
+                <p><b>Sınav Sorumlunuz:</b> {intern.internshipExams[0].teacher.user.firstName + " " + intern.internshipExams[0].teacher.user.lastName}</p>
+                <p><b>Sınav Tarihiniz:</b> {(intern.internshipExams[0].examTime).substring(0,10)}</p>
+            </div>
+        </div>
+                        
+            : null}
+            {intern.internshipExams[0].passed==false?
+            <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px", borderWidth: 3 }}>
+                <div className="card-body">
+                    <h5 className="card-title">{intern.company.formalName}</h5>
+                    <h6>{intern.internshipType==1?"Staj 1":"Staj 2"}</h6>
+                    <p >Staj Id: {intern.id}</p>
+                    <h4 style={{color: "red"}}>STAJINIZ RED EDİLMİŞTİR.</h4>
+                    
+                </div>
+            </div>        
+            :null}
+            {intern.internshipExams[0].passed==true?
+            <>
+                <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px", borderWidth: 3 }}>
+                    <div className="card-body">
+                        <h5 className="card-title">{intern.company.formalName}</h5>
+                        <h6>{intern.internshipType==1?"Staj 1":"Staj 2"}</h6>
+                        <p >Staj Id: {intern.id}</p>
+                        <b style={{color: "green"}}>STAJ SINAVINIZDA GÖSTERDİĞİNİZ BÜYÜK ÇABA İÇİN TEŞEKKÜR EDERİZ.</b>
+                        <p>Kabul Edilen Gün Sayısı: {intern.internshipExams[0].acceptedWorkDay}</p>
+                    </div>
+                </div>
+            </>
+            :null}
+            </>
+            :
+            
+            <div className="card" style={{width: "45rem", marginTop: "20px", marginBottom: "20px", borderWidth: 3 }}>
+            <div className="card-body">
+                <h5 className="card-title">{intern.company.formalName}</h5>
+                <h6>{intern.internshipType==1?"Staj 1":"Staj 2"}</h6>
+                <p >Staj Id: {intern.id}</p>
+                <p id="temp">{intern.internshipControlInfos.length>0?intern.internshipControlInfos[0].infoMessage:"NO INFO"}</p>
                 <p className="card-text">Staj Id: {intern.id}</p>
                 {intern.internshipControlInfos.length>0&&intern.internshipControlInfos[0].infoMessage=="ApplicationApproved"&&intern.internshipDocControls.length==0 ?
                 <>
@@ -110,7 +154,7 @@ function Belgeler() {
                 </div>
                 </>
                 :null}
-                {intern.internshipControlInfos.length==0 ?
+                {intern.internshipControlInfos.length==0||intern.internshipControlInfos[0].infoMessage=="ApplicationRejected" ?
                 <>
                 <a href={variables.API_URL+"Internships/download/"+intern.id} target="_blank" className="btn btn-primary" >İndir</a>
                 <div class="bg-light rounded h-100 p-4">
@@ -126,7 +170,7 @@ function Belgeler() {
                     <>
                     <p>BookPath: {intern.internshipDocControls[0].internshipsBookPath}</p>
                     <p>EvulationPath: {intern.internshipDocControls[0].evulationFormPath}</p>
-                    <p>accepted: {intern.internshipDocControls[0].accepted}</p>
+                    <p>accepted: {intern.internshipDocControls[0].accepted? "Onaylandı": "Onaylanmadı"}</p>
                     </>
                     }
 
@@ -135,7 +179,8 @@ function Belgeler() {
             </div>
             {console.log("c: "+count)}
         </div>
-        
+        }
+        </>
             )}
             
          </>

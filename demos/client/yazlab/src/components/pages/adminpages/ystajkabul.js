@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from 'react';
 import {variables} from '../../../Variables.js';
 
-function Komstajkabul () {
+function Ystajkabul () {
 
     const [students, setStudent] = useState([]);
     const [pdf, setPdf] = useState();
@@ -287,4 +287,4 @@ function Komstajkabul () {
     )
 }
 
-export default Komstajkabul;
+export default Ystajkabul;

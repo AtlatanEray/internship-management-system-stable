@@ -2,31 +2,36 @@ import { useEffect } from 'react';
 import { useState } from "react";
 import {variables} from '../../../Variables.js';
 
-function Komstajsinav () {
+function Ystajdegerlendirme() {
+
+    const {user, role, id, accessToken, previousLogin} = JSON.parse(localStorage.getItem('user'));
 
     const [students, setStudent] = useState([]);
-    const [teachers, setTeachers] = useState([]);
-    const [id, setId] = useState();
     const [pdfBasvuru, setPdfBasvuru] = useState();
     const [pdfDefter, setPdfDefter] = useState();
     const [pdfDeg, setPdfDeg] = useState();
-    const [examTime, setExamTime] = useState(new Date());
+    const [idd, setId] = useState();
     const [studentName, setStudentName] = useState("");
-    const [studentTc, setStudentTc] = useState();
-    var exam;
-    //üstteki satırı silme 
+    const [studentTc, setStudentTc] = useState(Date());
+    const [baslangic, setBaslangic] = useState(Date());
+    const [bitis, setBitis] = useState("");
+    const [gun, setGun] = useState();
+    const [kabulgun, setKabulGun] = useState(31);
+    const [kurum, setKurum] = useState();
+    const [passed, setPassed] = useState(false);
+//InternshipExams/Mark?internshipId=49&passed=true&acceptedDay=25
 
     useEffect(
         // Effect from first render
         () => {
-           Student();
-           Teacher();
+            Student();
+            console.log(bitis)
         },
         [] // Never re-runs
     );
 
     function Student() {
-        fetch(variables.API_URL + "InternshipDocControls/GetInternshipForExamAssignment", {
+        fetch(variables.API_URL + "InternshipExams/ListByTeacherUserId/" + user.id , {
             headers: {
                 'Accept': 'application/json'
                 }
@@ -40,65 +45,22 @@ function Komstajsinav () {
            console.log("çalış");
     }
 
-    function Teacher() {
-        fetch(variables.API_URL + "Teachers", {
+    async function Staj() {
+        await fetch(variables.API_URL + "InternshipExams/Mark?id="+idd+"&passed="+passed+"&acceptedDay="+kabulgun, {
             headers: {
-                'Accept': 'application/json'
-                }
-            })
-           .then(response => response.json())
-           .then(data => {
-               setTeachers(data);
-           });
+                'Accept': '*/*'
+                },
+            method:'PUT'
+            });
 
-           console.log(teachers);
-           console.log("çalış");
+           await Student();
     }
 
-    function postInternshipExam(exam)  {
-        var x;
-        fetch(variables.API_URL+'InternshipExams/setExamAssignment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            //'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).accessToken
-          },
-          body: exam
-          
-        }).then(res => res.json())
-        .then(response => {return (response.id);}, error => console.error('Error:', error));
-        console.log("intern Id: " + x);
-        return x;
-      }
-
-      function postExam() {
-        var x = JSON.stringify({
-            internshipId: pdfBasvuru,
-            teacherId: id,
-            examTime: examTime,
-        });
-        console.log(JSON.parse(x));
-        console.log(examTime);
-        exam = postInternshipExam(x);
-    }
-
-    async function deleteStaj()  {
-        var x;
-        await fetch(variables.API_URL+'InternshipDocControls/InternshipDocControlsByInternshipId/'+pdfBasvuru, {
-          method: 'DELETE',
-          headers: {
-            //'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).accessToken
-          },
-          
-          
-        });
-        console.log("staj id: " + x);
-        return x;
-      }
-
-    return (
+    
+    return(
         <>
-        <div class="container-fluid pt-4 px-4">
+        {/* <!-- ogrstajtakip Start --> */}
+            <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                             <div class="col-12">
                                 <div class="bg-light rounded h-100 p-4">
@@ -113,8 +75,9 @@ function Komstajsinav () {
                                                     <th scope="col">Staj Başvuru Formu</th>
                                                     <th scope="col">Staj Defteri</th>
                                                     <th scope="col">Staj Değerlendirme Formu</th>
-                                                    <th scope="col">Belge Değerlendirme</th>
-                                                    <th scope="col">Sınav Bilgileri</th>
+                                                    {/* <th scope="col">Belge Değerlendirme</th> */}
+                                                    <th scope="col">Sınav Tarihi</th>
+                                                    <th scope="col">Staj</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -126,10 +89,16 @@ function Komstajsinav () {
                                                     <td><a data-toggle="modal" data-target="#basvuruModal" onClick={()=>setPdfBasvuru(student.internshipId)}>Görüntüle</a></td>
                                                     <td><a data-toggle="modal" data-target="#defterModal" onClick={()=>setPdfDefter(student.internshipId)}>Görüntüle</a></td>
                                                     <td><a data-toggle="modal" data-target="#degModal" onClick={()=>setPdfDeg(student.internshipId)}>Görüntüle</a></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal" onClick={()=>setPdfBasvuru(student.internshipId)}>Reddet</button></td>
-                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#sinavModal" onClick={()=>(setPdfBasvuru(student.internshipId),
+                                                    {/* <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#belgeModal">Değerlendir</button></td> */}
+                                                    <td scope="row">{student.examTime.substring(0,10)}</td>
+                                                    <td><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#notModal"  onClick={()=>(setPdfBasvuru(student.internshipId),
                                                         setStudentName(student.internship.studentInternships[0].student.user.firstName+" "+student.internship.studentInternships[0].student.user.lastName),
-                                                        setStudentTc(student.internship.studentInternships[0].student.user.tc))}>Düzenle</button></td>                    
+                                                        setStudentTc(student.internship.studentInternships[0].student.user.tc),
+                                                        setBaslangic(student.internship.startingDate),
+                                                        setBitis(student.internship.endingDate),
+                                                        setKurum(student.internship.company.formalName),
+                                                        setGun(student.internship.workDay),
+                                                        setId(student.id))}>Notlandır</button></td>               
                     
                                                 </tr>)}
                                                 
@@ -140,8 +109,10 @@ function Komstajsinav () {
                             </div>
                 </div>
             </div>
+           
+            {/* <!-- ogrstajtakip End --> */}
 
-            <div class="modal fade" id="basvuruModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
+            <div class="modal fade" id="basvuruModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true" >
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -151,8 +122,8 @@ function Komstajsinav () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
-                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readpdf/"+pdfBasvuru}/> 
+                        <iframe  style={{frameborder:"0", marginheight:"0", marginwidth:"0",
+                             width:"100%", height:"100%"}} src={"https://localhost:7148/api/Internships/readpdf/"+pdfBasvuru}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -173,7 +144,7 @@ function Komstajsinav () {
                     </div>
                     <div class="modal-body">
                         <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
-                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readBookpdf/"+pdfDefter}/> 
+                             width:"100%", height:"100%"}} src={"https://localhost:7148/api/Internships/readBookpdf/"+pdfDefter}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -183,7 +154,7 @@ function Komstajsinav () {
                 </div>
             </div>
 
-            <div class="modal fade" id="degModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
+            <div class="modal fade" id="degModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true" >
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -194,7 +165,7 @@ function Komstajsinav () {
                     </div>
                     <div class="modal-body">
                         <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
-                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readEvulationpdf/"+pdfDeg}/> 
+                             width:"100%", height:"100%"}} src={"https://localhost:7148/api/Internships/readEvulationpdf/"+pdfDeg}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -203,10 +174,7 @@ function Komstajsinav () {
                   </div>
                 </div>
             </div>
-           
-            {/* <!-- ogrstajtakip End --> */}
-           
-{/* ögr staj degerlentdirme
+
             <div class="modal fade" id="notModal" tabindex="-1" role="dialog" aria-labelledby="notModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -220,21 +188,19 @@ function Komstajsinav () {
                         <div class="form-floating mb-3">
                             <input type = "text" class="form-control" id="adSoyad"
                                         placeholder="adSoyad"
-                                    aria-label="default input example" disabled/>
-                                    <label for="adSoyad">Ad Soyad</label>
+                                    aria-label="default input example" disabled value={studentName}/>
                         </div>
                         <div class="form-floating mb-3">
                             <input type = "text" class="form-control" id="tc"
                                         placeholder="tc"
-                                    aria-label="default input example" disabled/>
-                                    <label for="tc">TC</label>
+                                    aria-label="default input example" disabled value={studentTc}/>
                         </div>
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class ="mb-3">
                                     <label for="form-horizontal">Başlangıç Tarihi</label>
                                     <form class="form-horizontal" role="form">
-                                        <input type="date" class="form-control" id="date" disabled/>
+                                        <input type="text" class="form-control" id="text" disabled value={baslangic.substring(0,10)}/>
                                     </form>
                                 </div>                                                                     
                             </div>
@@ -242,7 +208,7 @@ function Komstajsinav () {
                                 <div class="mb-3">
                                     <label for="form-horizontal">Bitiş Tarihi</label>
                                     <form class="form-horizontal" role="form">
-                                        <input type="date" class="form-control" id="date" disabled/>
+                                        <input type="text" class="form-control" id="text" disabled value={bitis.substring(0,10)}/>
                                     </form>
                                 </div> 
                             </div>
@@ -250,48 +216,48 @@ function Komstajsinav () {
                                 <div class="form-floating mb-3">
                                     <input type = "text" class="form-control" id="isGunu"
                                             placeholder="isGunu"
-                                            aria-label="default input example" disabled/>
-                                            <label for="ısGunu">İş Günü Sayısı</label>
+                                            aria-label="default input example" disabled value={gun+" gün"}/>
                                 </div>
                             </div>              
                         </div>
                         <div class="form-floating mb-3">
                             <input type = "text" class="form-control" id="kurumAdi"
                                     placeholder="kurumAdi"
-                                    aria-label="default input example" disabled/>
-                                    <label for="kurumAdi">Kurum Adı</label>
+                                    aria-label="default input example" disabled value={kurum}/>
                         </div>
                         <h6>Staj Notlandırma</h6>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="option2"/>
-                            <label class="form-check-label" for="inlineRadio2">Başarılı</label>
+                               value={passed}
+                               onClick={() => setPassed(true)}/>
+                            <label class="form-check-label" for="inlineRadio2" >Başarılı</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="option2"/>
+                                value={passed}
+                                onClick={() => setPassed(false)}/>
                             <label class="form-check-label" for="inlineRadio2">Başarısız</label>
                         </div>
-                        <div class="form-check form-check-inline">
+                        {/* <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
                                 value="option1"/>
                             <label class="form-check-label" for="inlineRadio1">Eksik</label>
-                        </div>
+                        </div> */}
                         <div class="form-floating mb-3">
                             <input type = "text" class="form-control" id="aciklama"
-                                        placeholder="aciklama"
+                                        placeholder="aciklama" onChange={()=>setKabulGun(event.target.value)}
                                     aria-label="default input example"/>
                                     <label for="eksikBelge">Kabul Edilen Gün Sayısı</label>
                         </div>                        
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}}>Kaydet</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick={Staj}>Kaydet</button>
                     </div>
                   </div>
                 </div>
-            </div> */}
+            </div>
 
-            <div class="modal fade" id="belgeModal" tabindex="-1" role="dialog" aria-labelledby="belgeModalLabel" aria-hidden="true">
+            {/* <div class="modal fade" id="belgeModal" tabindex="-1" role="dialog" aria-labelledby="belgeModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -301,71 +267,31 @@ function Komstajsinav () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        
                         <div class="form-check form-check-inline">
-                            <p>Reddetmek istediğinize emin misiniz?</p>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                value="option1"/>
+                            <label class="form-check-label" for="inlineRadio1">Eksik belge bulunmaktadır.</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type = "text" class="form-control" id="aciklama"
+                                        placeholder="aciklama"
+                                    aria-label="default input example"/>
+                                    <label for="eksikBelge">Açıklama</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                value="option2"/>
+                            <label class="form-check-label" for="inlineRadio2">Eksik belge bulunmamaktadır.</label>
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick={deleteStaj}>Reddet</button>
+                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} >Kaydet</button>
                     </div>
                   </div>
                 </div>
-            </div>
-
-            <div class="modal fade" id="sinavModal" tabindex="-1" role="dialog" aria-labelledby="sinavModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="sinavModalLabel">Sınav Bilgileri</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-floating mb-3">
-                            <input type = "text" class="form-control" id="adSoyad"
-                                        placeholder="adSoyad"
-                                    aria-label="default input example" disabled value={studentName}/>                          
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type = "text" class="form-control" id="tc"
-                                        placeholder="tc"
-                                    aria-label="default input example" disabled value={studentTc}/>
-                        </div>
-                        <div class ="mb-3">
-                            <label for="form-horizontal">Değerlendirme Tarihi</label>
-                            <form class="form-horizontal" role="form">
-                                <input type="date" class="form-control" id="date" onChange={() => setExamTime(event.target.value)}/>
-                            </form>
-                        </div>    
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="form-floating mb-3" style={{marginTop:"20px"}}>
-                                
-                                    <select onChange={() => setId(event.target.value)}
-                                     class="form-select" id="floatingSelectRol4"
-                                        aria-label="Floating label select example"
-                                         >
-                                            {teachers.map((teacher) => 
-                                                 <option value={teacher.user.id} >{teacher.user.firstName+" "+teacher.user.lastName}</option>
-                                             )}
-                                        <option selected>Seçiniz</option>
-                                    </select>
-                                    <label htmlFor="floatingSelectRol4">Öğretmenler</label>
-                                </div>
-                                                                 
-                                </div>
-                            </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} onClick={postExam}>Kaydet</button>
-                    </div>
-                  </div>
-                </div>
-            </div>
+                </div> */}
         </>
     )
 }
 
-export default Komstajsinav;
+export default Ystajdegerlendirme;

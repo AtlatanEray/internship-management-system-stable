@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useState } from "react";
 import {variables} from '../../../Variables.js';
 
-function Komstajsinav () {
+function Ystajsinav () {
 
     const [students, setStudent] = useState([]);
     const [teachers, setTeachers] = useState([]);
@@ -151,8 +151,7 @@ function Komstajsinav () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
-                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readpdf/"+pdfBasvuru}/> 
+                        <iframe src={"https://localhost:7148/api/Internships/readpdf/"+pdfBasvuru}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -172,8 +171,7 @@ function Komstajsinav () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
-                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readBookpdf/"+pdfDefter}/> 
+                        <iframe src={"https://localhost:7148/api/Internships/readBookpdf/"+pdfDefter}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -193,8 +191,7 @@ function Komstajsinav () {
                       </button>
                     </div>
                     <div class="modal-body">
-                        <iframe style={{frameborder:"0", marginheight:"0", marginwidth:"0",
-                             width:"800px", height:"800px"}} src={"https://localhost:7148/api/Internships/readEvulationpdf/"+pdfDeg}/> 
+                        <iframe src={"https://localhost:7148/api/Internships/readEvulationpdf/"+pdfDeg}/> 
                         
                     </div>
                     <div class="modal-footer">
@@ -368,4 +365,4 @@ function Komstajsinav () {
     )
 }
 
-export default Komstajsinav;
+export default Ystajsinav;

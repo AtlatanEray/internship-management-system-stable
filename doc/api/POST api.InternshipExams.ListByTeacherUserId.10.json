@@ -1,0 +1,79 @@
+// https://localhost:7148/api/InternshipExams/ListByTeacherUserId/10' 
+
+[
+    {
+      "id": 14,
+      "internshipId": 49,
+      "teacherId": 10,
+      "examTime": "2022-11-17T00:00:00",
+      "passed": false,
+      "acceptedWorkDay": 0,
+      "internship": {
+        "id": 49,
+        "addressId": 112,
+        "startingDate": "2022-09-04T00:00:00",
+        "endingDate": "2022-10-31T00:00:00",
+        "workDay": 30,
+        "internshipType": 1,
+        "sgk": true,
+        "_25age": true,
+        "gss": true,
+        "stateContribution": false,
+        "autumnPeriod": true,
+        "manager": 1,
+        "companyId": 57,
+        "address": null,
+        "company": {
+          "id": 57,
+          "formalName": "Icredible Teknoloji A.S.",
+          "addressId": 113,
+          "telephone": "05345647822",
+          "fax": "1234",
+          "email": "info@icredible.com",
+          "address": null,
+          "companyFields": [],
+          "internships": []
+        },
+        "internshipTypeNavigation": null,
+        "managerNavigation": null,
+        "imes": [],
+        "internshipControlInfos": [],
+        "internshipDocControls": [],
+        "internshipExams": [],
+        "studentInternships": [
+          {
+            "id": 31,
+            "studentId": 1,
+            "internId": 49,
+            "student": {
+              "userId": 1,
+              "studentNumber": "201307008",
+              "user": {
+                "id": 1,
+                "departmentId": 6,
+                "firstName": "Eren",
+                "lastName": "Torun",
+                "password": "34dd62e2bada500a006ea462a9646e36",
+                "email": "beneyim@gmail.com",
+                "telephone": "905385505368",
+                "tc": "11111111110",
+                "lastLogin": {
+                  "year": 2022,
+                  "month": 11,
+                  "day": 17,
+                  "dayOfWeek": 4,
+                  "dayOfYear": 321,
+                  "dayNumber": 738475
+                },
+                "department": null,
+                "teacher": null,
+                "admins": []
+              },
+              "studentInternships": []
+            }
+          }
+        ]
+      },
+      "teacher": null
+    }
+  ]

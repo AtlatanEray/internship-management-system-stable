@@ -1,0 +1,3 @@
+curl -X 'PUT' \
+  'https://localhost:7148/api/InternshipExams/Mark?internshipId=49&passed=true&acceptedDay=25' \
+  -H 'accept: */*'

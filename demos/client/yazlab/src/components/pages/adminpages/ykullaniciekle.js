@@ -26,7 +26,7 @@ function Ykullaniciekle () {
         var x = JSON.stringify({
             firstName: name,
             lastName: lastName,
-            departmentId: 1,
+            departmentId: 6,
             password: "string",
             email: email,
             telephone: phone,
@@ -44,7 +44,7 @@ function Ykullaniciekle () {
         var x = JSON.stringify({
             firstName: name,
             lastName: lastName,
-            departmentId: 1,
+            departmentId: 6,
             password: "string",
             email: email,
             telephone: phone,
@@ -61,7 +61,7 @@ function Ykullaniciekle () {
         var x = JSON.stringify({
             firstName: name,
             lastName: lastName,
-            departmentId: 1,
+            departmentId: 6,
             password: "string",
             email: email,
             telephone: phone,
@@ -150,7 +150,7 @@ function Ykullaniciekle () {
 
                 </div>
             </div>
-            <div class="modal fade" id="sifreataModal" tabIndex="-1" role="dialog" aria-labelledby="sifreataModalLabel" aria-hidden="true">
+            {/* <div class="modal fade" id="sifreataModal" tabIndex="-1" role="dialog" aria-labelledby="sifreataModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -168,7 +168,7 @@ function Ykullaniciekle () {
                     </div>
                   </div>
                 </div>
-            </div>
+            </div> */}
 
         </>
     )

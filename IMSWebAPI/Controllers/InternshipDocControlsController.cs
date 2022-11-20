@@ -33,6 +33,7 @@ namespace IMSWebAPI.Controllers
         {
             return await _context.InternshipDocControls
                 .Where(x => x.InternshipsBookPath=="uploaded" || x.EvulationFormPath=="uploaded")
+                .Where(x => x.Accepted == null)
                 .Include(x => x.Internship.StudentInternships)
                 .ThenInclude(si => si.Student.User)
                 .ToListAsync();
@@ -99,6 +100,22 @@ namespace IMSWebAPI.Controllers
         public async Task<IActionResult> DeleteInternshipDocControl(int id)
         {
             var internshipDocControl = await _context.InternshipDocControls.FindAsync(id);
+            if (internshipDocControl == null)
+            {
+                return NotFound();
+            }
+
+            _context.InternshipDocControls.Remove(internshipDocControl);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/InternshipDocControlsByInternshipId/5
+        [HttpDelete("InternshipDocControlsByInternshipId/{internshipId}")]
+        public async Task<IActionResult> InternshipDocControlsByInternshipId(int internshipId)
+        {
+            var internshipDocControl = await _context.InternshipDocControls.Where(x => x.InternshipId == internshipId).FirstOrDefaultAsync();
             if (internshipDocControl == null)
             {
                 return NotFound();

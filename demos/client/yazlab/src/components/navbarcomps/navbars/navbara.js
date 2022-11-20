@@ -20,7 +20,7 @@ function Navbara({children}) {
      const [newPassword, setNewpassword] = useState("");
      const {change,error,isLoading} = Changepass();
      const [errorpass,setError] = useState("");
-     const userId = user.Id;
+     const userId = user.id;
    
      const changeHandler = async (e) => {
        e.preventDefault();
@@ -53,7 +53,7 @@ function Navbara({children}) {
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <img src="https://www.kouvakif.org.tr/img/logo/footer.png " weight="120" height="120" style={{display: "block", margin: "auto"}}/>
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="#" class="navbar-brand mx-4 mb-3">
                     <h3 class>Staj Takip Sistemi</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -70,34 +70,37 @@ function Navbara({children}) {
                     <a href="index.html" class="nav-item nav-link active"><i class="fa fa-home me-2"></i>Ana Sayfa</a>
                     <a href="/ykullaniciekle" class="nav-item nav-link"><i class="fa fa-user-plus me-2"></i>Kullanıcı Ekle</a>
                     <a href="/ykomisyonatama" class="nav-item nav-link"><i class="fa fa-user-plus me-2"></i>Komisyon Üyesi</a>
+                    {role=="superadmin"?
+                                        <a href="/sadminatama" class="nav-item nav-link"><i class="fa fa-user-plus me-2"></i>Admin Üyesi</a>
+                    :null}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-clipboard-check me-2"></i>Başvuru Kabul</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="ystajkabul.html" class="dropdown-item">Staj Kabul</a>
-                            <a href="yimekabul.html" class="dropdown-item">İME Kabul</a>
+                            <a href="ystajkabul" class="dropdown-item">Staj Kabul</a>
+                            <a href="yimekabul" class="dropdown-item">İME Kabul</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-question me-2"></i>Sınav Bilgileri</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="ystajsinav.html" class="dropdown-item">Staj Sınavı</a>
-                            <a href="yimesinav.html" class="dropdown-item">İME Sınavı</a>
+                            <a href="ystajsinav" class="dropdown-item">Staj Sınavı</a>
+                            <a href="yimesinav" class="dropdown-item">İME Sınavı</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-chart-bar me-2"></i>Değerlendirmeler</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="ystajdegerlendirme.html" class="dropdown-item">Staj Değerlendirme</a>
-                            <a href="yimedegerlendirme.html" class="dropdown-item">İME Değerlendirme</a>
+                            <a href="ystajdegerlendirme" class="dropdown-item">Staj Değerlendirme</a>
+                            <a href="yimedegerlendirme" class="dropdown-item">İME Değerlendirme</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
+                    {/* <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>Öğrenci Takip</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="ystajtakip.html" class="dropdown-item">Staj Takip</a>
-                            <a href="yimetakip.html" class="dropdown-item">İME Takip</a>
+                            <a href="ystajtakip" class="dropdown-item">Staj Takip</a>
+                            <a href="yimetakip" class="dropdown-item">İME Takip</a>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </nav>
         </div>
@@ -111,14 +114,14 @@ function Navbara({children}) {
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
+                {/* <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
-                </a>
+                </a> */}
                 <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search"/>
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
+                    {/* <div class="nav-item dropdown">
                         
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -177,7 +180,7 @@ function Navbara({children}) {
                             <hr class="dropdown-divider"/>
                             <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
-                    </div>
+                    </div> */}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style={{width: "40px", height: "40px"}}/>
@@ -187,7 +190,7 @@ function Navbara({children}) {
                             <a href="#" class="dropdown-item"><button type="button" class="btn btn-primary" style={{backgroundColor:"#009933"}} data-toggle="modal" data-target="#exampleModal">
                                 Şifre Değiştirme
                               </button></a>
-                            <a href="#" class="dropdown-item"><button type="button" class="btn btn-outline-secondary m-2" onClick={handleClick}>Çıkış</button></a>
+                            <a href="/login" class="dropdown-item"><button type="button" class="btn btn-outline-secondary m-2" onClick={handleClick}>Çıkış</button></a>
                         </div>
                     </div>
                 </div>
@@ -195,7 +198,7 @@ function Navbara({children}) {
             {/* <!-- Navbar End --> */}
 
              {/* Modal Start */}
-          <div class="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class={"modal fade"+ (user.lastLogin==null? "show d-block":null)} id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
